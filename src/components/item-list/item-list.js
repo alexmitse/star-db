@@ -37,6 +37,7 @@ export default class ItemList extends Component {
 
     const {peopleList} = this.state;
 
+
     if(!peopleList) {
       return <Spinner />
     }

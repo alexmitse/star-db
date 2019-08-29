@@ -9,35 +9,26 @@ import './people-page.css';
 export default class PeolpePage extends Component {
 
     state = {
-        selectedPerson: 3
+        selectedPerson: 1
     }
 
-    onPersonSelected = (id) => {
-        this.setState({
-            selectedPerson: id
-        });
+    onPersonSelected = (selectedPerson) => {
+        this.setState({selectedPerson}); 
     };
 
 
     render() {
-        return ( <
-            div className = "row mb2" >
-            <
-            div className = "col-md-6" >
-            <
-            ItemList OnItemSelected = {
-                this.onPersonSelected
-            }
-            /> < /
-            div > <
-            div className = "col-md-6" >
-            <
-            PersonDetails personId = {
-                this.state.selectedPerson
-            }
-            /> < /
-            div > <
-            /div>
+        return ( 
+        <div className = "row mb2" >
+            <div className = "col-md-6" >
+            <ItemList OnItemSelected = {
+                this.onPersonSelected} /> 
+            </div> 
+            <div className = "col-md-6" >
+            <PersonDetails personId = {
+                this.state.selectedPerson} /> 
+            </div> 
+        </div>
         );
     };
 }
