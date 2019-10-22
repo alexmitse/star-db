@@ -5,19 +5,19 @@ import './header.css';
 const Header = () => (
   <div className="header d-flex">
     <h3>
-      <a href="#">
+      <botton>
           Star DB
-      </a>
+      </botton>
     </h3>
     <ul className="d-flex">
       <li>
-        <a href="#">People</a>
+        <botton>People</botton>
       </li>
       <li>
-        <a href="#">Planets</a>
+        <botton>Planets</botton>
       </li>
       <li>
-        <a href="#">Starships</a>
+        <botton>Starships</botton>
       </li>
     </ul>
   </div>
