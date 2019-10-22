@@ -12,24 +12,23 @@ import './app.css';
 
 export default class App extends Component {
 
-    state = {
-        showRandomPlanet: true,
-        hasError: false
-    };
 
-    toggleRandomPlanet = () => {
-        this.setState((state) => {
-        return {
-            showRandomPlanet: !state.showRandomPlanet
-        }
-        });
-    };
+        state = {
+            showRandomPlanet: true,
+            hasError: false
+        };
+                    
+        componentDidCatch() {
+            console.log('Did Catch');
+            this.setState({hasError: true});
+        };
 
-
-    componentDidCatch() {
-        console.log('Did Catch');
-        this.setState({hasError: true});
-    }
+        toggleRandomPlanet = () => {
+            this.setState((state) => {
+            return {
+            showRandomPlanet: !state.showRandomPlanet }
+            });
+        }; 
 
     render() {
 
@@ -58,4 +57,3 @@ export default class App extends Component {
         )
     }
 }
-
