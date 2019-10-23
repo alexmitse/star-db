@@ -50,7 +50,7 @@
     box-sizing: border-box;
 }
 
-.lds-double-ring>div {
+.lds-double-ring > div {
     position: absolute;
     width: 168px;
     height: 168px;
@@ -63,8 +63,8 @@
     animation: lds-double-ring 2.7s linear infinite;
 }
 
-.lds-double-ring>div:nth-child(2),
-.lds-double-ring>div:nth-child(4) {
+.lds-double-ring > div:nth-child(2),
+.lds-double-ring > div:nth-child(4) {
     width: 148px;
     height: 148px;
     top: 26px;
@@ -73,15 +73,15 @@
     animation: lds-double-ring_reverse 2.7s linear infinite;
 }
 
-.lds-double-ring>div:nth-child(2) {
+.lds-double-ring > div:nth-child(2) {
     border-color: transparent #5a5f62 transparent #5a5f62;
 }
 
-.lds-double-ring>div:nth-child(3) {
+.lds-double-ring > div:nth-child(3) {
     border-color: transparent;
 }
 
-.lds-double-ring>div:nth-child(3) div {
+.lds-double-ring > div:nth-child(3) div {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -89,9 +89,9 @@
     transform: rotate(45deg);
 }
 
-.lds-double-ring>div:nth-child(3) div:before,
-.lds-double-ring>div:nth-child(3) div:after {
-    content: "";
+.lds-double-ring > div:nth-child(3) div:before,
+.lds-double-ring > div:nth-child(3) div:after {
+    content: '';
     display: block;
     position: absolute;
     width: 8px;
@@ -103,17 +103,17 @@
     box-shadow: 0 160px 0 0 #8ce5c9;
 }
 
-.lds-double-ring>div:nth-child(3) div:after {
+.lds-double-ring > div:nth-child(3) div:after {
     left: -8px;
     top: 72px;
     box-shadow: 160px 0 0 0 #8ce5c9;
 }
 
-.lds-double-ring>div:nth-child(4) {
+.lds-double-ring > div:nth-child(4) {
     border-color: transparent;
 }
 
-.lds-double-ring>div:nth-child(4) div {
+.lds-double-ring > div:nth-child(4) div {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -121,9 +121,9 @@
     transform: rotate(45deg);
 }
 
-.lds-double-ring>div:nth-child(4) div:before,
-.lds-double-ring>div:nth-child(4) div:after {
-    content: "";
+.lds-double-ring > div:nth-child(4) div:before,
+.lds-double-ring > div:nth-child(4) div:after {
+    content: '';
     display: block;
     position: absolute;
     width: 8px;
@@ -135,7 +135,7 @@
     box-shadow: 0 140px 0 0 #5a5f62;
 }
 
-.lds-double-ring>div:nth-child(4) div:after {
+.lds-double-ring > div:nth-child(4) div:after {
     left: -8px;
     top: 62px;
     box-shadow: 140px 0 0 0 #5a5f62;

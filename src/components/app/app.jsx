@@ -1,59 +1,53 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import Header from '../header';
-import PlanetDetails from '../planet-details';
 import RandomPlanet from '../random-planet';
-import StarshipDetails from '../starship-details';
 import ErrorIndicator from '../errorIndicator';
 import PeoplePage from '../people-page';
-
 
 import './app.css';
 
 export default class App extends Component {
-
-
-        state = {
+    constructor(props) {
+        super(props);
+        this.state = {
             showRandomPlanet: true,
-            hasError: false
-        };
-                    
-        componentDidCatch() {
-            console.log('Did Catch');
-            this.setState({hasError: true});
+            hasError: false,
         };
 
-        toggleRandomPlanet = () => {
-            this.setState((state) => {
-            return {
-            showRandomPlanet: !state.showRandomPlanet }
-            });
-        }; 
+        this.toggleRandomPlanet = () => {
+            this.setState(state => ({ showRandomPlanet: !state.showRandomPlanet }));
+        };
+    }
+
+    componentDidCatch() {
+        this.setState({ hasError: true });
+    }
 
     render() {
-
-        if (this.state.hasError) {
-            return <ErrorIndicator />
+        const { hasError } = this.state;
+        if (hasError) {
+            return <ErrorIndicator />;
         }
 
-        const planet = this.state.showRandomPlanet ?
-            <RandomPlanet/> : 
-            null;
+        const { showRandomPlanet } = this.state;
+        const planet = showRandomPlanet ? <RandomPlanet /> : null;
 
         return (
             <div>
                 <Header />
-                { planet }
+                {planet}
 
                 <button
+                    type="button"
                     className="toggle-planet btn btn-warning btn-lg"
-                    onClick={this.toggleRandomPlanet}>
+                    onClick={this.toggleRandomPlanet}
+                >
                     Toggle Random Planet
                 </button>
 
                 <PeoplePage />
-
             </div>
-        )
+        );
     }
 }
