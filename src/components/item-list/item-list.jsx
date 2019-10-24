@@ -50,7 +50,7 @@ export default class ItemList extends Component {
     return (
       <ul className="item-list list-group">
         {items}
-        <p>test husky, can not push this component</p>
+        <p>test husky, WTF</p>
       </ul>
     );
   }
