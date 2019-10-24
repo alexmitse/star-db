@@ -51,6 +51,7 @@ export default class ItemList extends Component {
       <ul className="item-list list-group">
         {items}
         <p>test husky, WTF</p>
+        <p>PISUN</p>
       </ul>
     );
   }
