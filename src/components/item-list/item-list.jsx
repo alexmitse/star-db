@@ -47,6 +47,11 @@ export default class ItemList extends Component {
 
     const items = this.renderItems(peopleList);
 
-    return <ul className="item-list list-group">{items}</ul>;
+    return (
+      <ul className="item-list list-group">
+        {items}
+        <p>test husky, can not push this component</p>
+      </ul>
+    );
   }
 }
