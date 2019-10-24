@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import SwapiService from '../../services/swapi-service';
 // import Spinner from '../spinner';
@@ -20,6 +21,7 @@ export default class PersonDetails extends Component {
 
   componentDidUpdate(prevProps) {
     const { personId } = prevProps;
+    // eslint-disable-next-line react/destructuring-assignment
     if (this.props.personId !== personId) {
       this.updatePerson();
     }

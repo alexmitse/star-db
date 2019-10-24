@@ -16,7 +16,9 @@
     "lint": "npm run lint:scripts && npm run lint:formatting && npm run lint:styles",
     "lint:scripts": "eslint ./**/*.{js,jsx}",
     "lint:formatting": "prettier --check ./**/*.*",
-    "lint:styles": "stylelint ./**/*.css"
+    "lint:styles": "stylelint ./**/*.css",
+    "precommit": "npm run lint",
+    "prepush": "npm run lint npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -24,6 +24,7 @@ export default class ItemList extends Component {
   }
 
   renderItems(arr) {
+    // eslint-disable-next-line react/prop-types
     const { OnItemSelected } = this.props;
     return arr.map(({ id, name }) => (
       <button
