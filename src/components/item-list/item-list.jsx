@@ -48,12 +48,6 @@ export default class ItemList extends Component {
 
     const items = this.renderItems(peopleList);
 
-    return (
-      <ul className="item-list list-group">
-        {items}
-        <p>test husky, WTF</p>
-        <p>PISUN</p>
-      </ul>
-    );
+    return <ul className="item-list list-group">{items}</ul>;
   }
 }
