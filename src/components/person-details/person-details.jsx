@@ -33,7 +33,7 @@ export default class PersonDetails extends Component {
       return;
     }
 
-    this.swapiService.getPerson(personId).then(person => {
+    this.swapiService.getPerson(personId).then((person) => {
       this.setState({ person });
     });
   }

@@ -11,7 +11,7 @@ export default class PeolpePage extends Component {
     };
   }
 
-  onPersonSelected = selectedPerson => {
+  onPersonSelected = (selectedPerson) => {
     this.setState({ selectedPerson });
   };
 

@@ -26,7 +26,7 @@ export default class RandomPlanet extends Component {
     clearInterval(this.interval);
   }
 
-  onPlanetLoaded = planet => {
+  onPlanetLoaded = (planet) => {
     this.setState({
       planet,
       loading: false,
@@ -68,7 +68,7 @@ export default class RandomPlanet extends Component {
   }
 }
 
-const PlanetView = prop => {
+const PlanetView = (prop) => {
   const { planet } = prop;
   const { id, name, population, rotationPeriod, diameter } = planet;
 

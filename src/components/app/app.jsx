@@ -16,7 +16,7 @@ export default class App extends Component {
     };
 
     this.toggleRandomPlanet = () => {
-      this.setState(state => ({ showRandomPlanet: !state.showRandomPlanet }));
+      this.setState((state) => ({ showRandomPlanet: !state.showRandomPlanet }));
     };
   }
 

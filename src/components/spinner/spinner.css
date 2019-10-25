@@ -9,7 +9,7 @@
   }
 }
 
-@-webkit-keyframes lds-double-ring {
+/* @-webkit-keyframes lds-double-ring {
   0% {
     -webkit-transform: rotate(0);
     transform: rotate(0);
@@ -18,7 +18,7 @@
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
-}
+} */
 
 @keyframes lds-double-ring_reverse {
   0% {
@@ -52,23 +52,23 @@
 
 .lds-double-ring > div {
   position: absolute;
-  width: 168px;
-  height: 168px;
   top: 16px;
   left: 16px;
-  border-radius: 50%;
+  width: 168px;
+  height: 168px;
   border: 8px solid #000;
   border-color: #8ce5c9 transparent #8ce5c9 transparent;
   -webkit-animation: lds-double-ring 2.7s linear infinite;
   animation: lds-double-ring 2.7s linear infinite;
+  border-radius: 50%;
 }
 
 .lds-double-ring > div:nth-child(2),
 .lds-double-ring > div:nth-child(4) {
-  width: 148px;
-  height: 148px;
   top: 26px;
   left: 26px;
+  width: 148px;
+  height: 148px;
   -webkit-animation: lds-double-ring_reverse 2.7s linear infinite;
   animation: lds-double-ring_reverse 2.7s linear infinite;
 }
@@ -91,21 +91,21 @@
 
 .lds-double-ring > div:nth-child(3) div:before,
 .lds-double-ring > div:nth-child(3) div:after {
-  content: '';
-  display: block;
   position: absolute;
-  width: 8px;
-  height: 8px;
   top: -8px;
   left: 72px;
+  display: block;
+  width: 8px;
+  height: 8px;
   background: #8ce5c9;
   border-radius: 50%;
   box-shadow: 0 160px 0 0 #8ce5c9;
+  content: '';
 }
 
 .lds-double-ring > div:nth-child(3) div:after {
-  left: -8px;
   top: 72px;
+  left: -8px;
   box-shadow: 160px 0 0 0 #8ce5c9;
 }
 
@@ -123,27 +123,28 @@
 
 .lds-double-ring > div:nth-child(4) div:before,
 .lds-double-ring > div:nth-child(4) div:after {
-  content: '';
-  display: block;
   position: absolute;
-  width: 8px;
-  height: 8px;
   top: -8px;
   left: 62px;
+  display: block;
+  width: 8px;
+  height: 8px;
   background: #5a5f62;
   border-radius: 50%;
   box-shadow: 0 140px 0 0 #5a5f62;
+  content: '';
 }
 
 .lds-double-ring > div:nth-child(4) div:after {
-  left: -8px;
   top: 62px;
+  left: -8px;
   box-shadow: 140px 0 0 0 #5a5f62;
 }
 
 .lds-double-ring {
   width: 77px !important;
   height: 77px !important;
-  -webkit-transform: translate(-38.5px, -38.5px) scale(0.385) translate(38.5px, 38.5px);
+  -webkit-transform: translate(-38.5px, -38.5px) scale(0.385)
+    translate(38.5px, 38.5px);
   transform: translate(-38.5px, -38.5px) scale(0.385) translate(38.5px, 38.5px);
 }
