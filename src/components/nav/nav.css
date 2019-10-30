@@ -1,0 +1,9 @@
+.navigation {
+    display: flex;
+}
+
+.nav-links {
+    width: 40%;
+    display: flex;
+    justify-content: flex-start;
+}
