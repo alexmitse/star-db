@@ -11,8 +11,8 @@ export default class SwapiService {
     return resJson;
   }
 
-  async getAllPeople() {
-    const res = await this.getResource(`/people/`);
+  async getAllPeople(nextPage) {
+    const res = await this.getResource(`/people/${nextPage}`);
     return res.results.map(this.transformPerson);
   }
 

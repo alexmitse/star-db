@@ -14,11 +14,14 @@ export default class ItemList extends Component {
 
     this.state = {
       peopleList: null,
+      pageSize: 10,
+      totalPeopleCount: 87,
+      currentPage: 1
     };
   }
 
   componentDidMount() {
-    this.swapiService.getAllPeople().then((peopleList) => {
+    this.swapiService.getAllPeople(`?page=${this.state.currentPage}`).then((peopleList) => {
       this.setState({ peopleList });
     });
   }
@@ -39,8 +42,22 @@ export default class ItemList extends Component {
     ));
   }
 
+  onPageChanged = (item) => {
+    this.setState({currentPage: item});
+    this.swapiService.getAllPeople(`?page=${this.state.currentPage}`).then((peopleList) => {
+      this.setState({ peopleList });
+    });
+  }
+  
+
+
   render() {
-    const { peopleList } = this.state;
+    const { peopleList, pageSize, totalPeopleCount, currentPage } = this.state;
+    const pagesCount = Math.ceil(totalPeopleCount/pageSize);
+    const pages = [];
+    for(let i = 1; i<pagesCount; i++){
+      pages.push(i);
+    }
 
     if (!peopleList) {
       return <Spinner />;
@@ -48,6 +65,19 @@ export default class ItemList extends Component {
 
     const items = this.renderItems(peopleList);
 
-    return <ul className="item-list list-group">{items}</ul>;
+    return (
+      <div>
+        <ul className="item-list list-group">{items}</ul>
+        {/* <ul className="list-group mb-4"> */}
+        <ul>
+          {pages.map(item=>{
+            return <li 
+              // className={currentPage===item ? "list-group-item":"list-group-item"}
+              key = {Math.random()}
+              onClick={()=>{this.onPageChanged(item)}}>{item}</li>
+          })}
+        </ul>
+      </div>
+    )
   }
 }
