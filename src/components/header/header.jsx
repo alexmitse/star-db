@@ -1,24 +1,28 @@
 import React from 'react';
+import PeoplePage from '../people-page';
+import Nav from '../nav';
+import PlanetDitails from '../planet-details';
+import StarshipDetails from '../starship-details';
+import {HashRouter, BrowserRouter as Piska, Switch, Route} from 'react-router-dom';
+
 
 import './header.css';
+import MainPage from '../main-page';
 
-const Header = () => (
-  <div className="header d-flex">
-    <h3>
-      <botton>Star DB</botton>
-    </h3>
-    <ul className="d-flex">
-      <li>
-        <botton>People</botton>
-      </li>
-      <li>
-        <botton>Planets</botton>
-      </li>
-      <li>
-        <botton>Starships</botton>
-      </li>
-    </ul>
-  </div>
-);
+const Header = () => {
+  return (
+      <HashRouter>
+    <div className="header d-flex">
+      <Nav />
+      <Switch>
+        <Route path="/" exact component={MainPage} />
+        <Route path="/people" component={PeoplePage} />
+        <Route path="/planet" component={PlanetDitails} />
+        <Route path="/starship" component={StarshipDetails} />
+      </Switch>
+    </div>
+      </HashRouter>
+  )
+};
 
 export default Header;
