@@ -12,7 +12,7 @@ export default class SwapiService {
   }
 
   async getAllPeople(nextPage) {
-    const res = await this.getResource(`/people/${nextPage}`);
+    const res = await this.getResource(`/people/?page=${nextPage}`);
     return res.results.map(this.transformPerson);
   }
 

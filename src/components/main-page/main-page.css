@@ -1,9 +1,9 @@
 .show-planet {
-    display: flex;
-    justify-content: center;
-    margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
 }
 
 .toggle-planet {
-    margin-bottom: 1rem;
-  }
+  margin-bottom: 1rem;
+}

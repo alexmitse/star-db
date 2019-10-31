@@ -16,15 +16,26 @@ export default class ItemList extends Component {
       peopleList: null,
       pageSize: 10,
       totalPeopleCount: 87,
-      currentPage: 1
+      currentPage: 1,
     };
   }
 
   componentDidMount() {
-    this.swapiService.getAllPeople(`?page=${this.state.currentPage}`).then((peopleList) => {
-      this.setState({ peopleList });
-    });
+    this.swapiService
+      .getAllPeople(`${this.state.currentPage}`)
+      .then((peopleList) => {
+        this.setState({ peopleList });
+      });
   }
+
+  onPageChanged = (item) => {
+    this.setState({ currentPage: item });
+    this.swapiService
+      .getAllPeople(`${this.state.currentPage}`)
+      .then((peopleList) => {
+        this.setState({ peopleList });
+      });
+  };
 
   renderItems(arr) {
     // eslint-disable-next-line react/prop-types
@@ -42,20 +53,11 @@ export default class ItemList extends Component {
     ));
   }
 
-  onPageChanged = (item) => {
-    this.setState({currentPage: item});
-    this.swapiService.getAllPeople(`?page=${this.state.currentPage}`).then((peopleList) => {
-      this.setState({ peopleList });
-    });
-  }
-  
-
-
   render() {
-    const { peopleList, pageSize, totalPeopleCount, currentPage } = this.state;
-    const pagesCount = Math.ceil(totalPeopleCount/pageSize);
+    const { peopleList, pageSize, totalPeopleCount } = this.state;
+    const pagesCount = Math.ceil(totalPeopleCount / pageSize);
     const pages = [];
-    for(let i = 1; i<pagesCount; i++){
+    for (let i = 1; i <= pagesCount; i += 1) {
       pages.push(i);
     }
 
@@ -68,16 +70,23 @@ export default class ItemList extends Component {
     return (
       <div>
         <ul className="item-list list-group">{items}</ul>
-        {/* <ul className="list-group mb-4"> */}
         <ul>
-          {pages.map(item=>{
-            return <li 
-              // className={currentPage===item ? "list-group-item":"list-group-item"}
-              key = {Math.random()}
-              onClick={()=>{this.onPageChanged(item)}}>{item}</li>
+          {pages.map((item) => {
+            return (
+              <botton
+                onClick={() => {
+                  this.onPageChanged(item);
+                }}
+                onKeyDown={() => {
+                  this.onPageChanged(item);
+                }}
+              >
+                {item}
+              </botton>
+            );
           })}
         </ul>
       </div>
-    )
+    );
   }
 }
