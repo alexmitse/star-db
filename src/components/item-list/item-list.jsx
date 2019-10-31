@@ -3,6 +3,7 @@ import SwapiService from '../../services/swapi-service';
 import Spinner from '../spinner';
 
 import './item-list.css';
+import Pagination from '../pagination/pagination';
 
 // import { CLIENT_RENEG_LIMIT } from 'tls';
 
@@ -14,26 +15,30 @@ export default class ItemList extends Component {
 
     this.state = {
       peopleList: null,
-      pageSize: 10,
-      totalPeopleCount: 87,
-      currentPage: 1,
+      peopleCount: null,
+      currentListPage: 1,
     };
   }
 
   componentDidMount() {
-    this.swapiService
-      .getAllPeople(`${this.state.currentPage}`)
-      .then((peopleList) => {
-        this.setState({ peopleList });
+    this.swapiService.getAllPeople(``).then(([peopleList, peopleCount]) => {
+      this.setState({
+        peopleList: peopleList,
+        peopleCount: peopleCount,
+        currentListPage: 1,
       });
+    });
   }
 
   onPageChanged = (item) => {
-    this.setState({ currentPage: item });
     this.swapiService
-      .getAllPeople(`${this.state.currentPage}`)
-      .then((peopleList) => {
-        this.setState({ peopleList });
+      .getAllPeople(`${item}`)
+      .then(([peopleList, peopleCount]) => {
+        this.setState({
+          peopleList: peopleList,
+          peopleCount: peopleCount,
+          currentListPage: item,
+        });
       });
   };
 
@@ -54,12 +59,7 @@ export default class ItemList extends Component {
   }
 
   render() {
-    const { peopleList, pageSize, totalPeopleCount } = this.state;
-    const pagesCount = Math.ceil(totalPeopleCount / pageSize);
-    const pages = [];
-    for (let i = 1; i <= pagesCount; i += 1) {
-      pages.push(i);
-    }
+    const { peopleList, peopleCount, currentListPage } = this.state;
 
     if (!peopleList) {
       return <Spinner />;
@@ -70,22 +70,13 @@ export default class ItemList extends Component {
     return (
       <div>
         <ul className="item-list list-group">{items}</ul>
-        <ul>
-          {pages.map((item) => {
-            return (
-              <botton
-                onClick={() => {
-                  this.onPageChanged(item);
-                }}
-                onKeyDown={() => {
-                  this.onPageChanged(item);
-                }}
-              >
-                {item}
-              </botton>
-            );
-          })}
-        </ul>
+        <Pagination
+          data={{
+            totalCount: peopleCount,
+            onSelectNumber: this.onPageChanged,
+            currentPage: currentListPage,
+          }}
+        />
       </div>
     );
   }
