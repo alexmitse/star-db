@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import SwapiService from '../../services/swapi-service';
 import Spinner from '../spinner';
-
+import { Link } from 'react-router-dom';
 import './item-list.css';
 import Pagination from '../pagination/pagination';
-
-// import { CLIENT_RENEG_LIMIT } from 'tls';
 
 export default class ItemList extends Component {
   constructor(props) {
@@ -25,36 +23,34 @@ export default class ItemList extends Component {
       this.setState({
         peopleList: peopleList,
         peopleCount: peopleCount,
-        currentListPage: 1,
       });
     });
   }
 
   onPageChanged = (item) => {
-    this.swapiService
-      .getAllPeople(`${item}`)
-      .then(([peopleList, peopleCount]) => {
-        this.setState({
-          peopleList: peopleList,
-          peopleCount: peopleCount,
-          currentListPage: item,
-        });
+    this.swapiService.getAllPeople(`${item}`).then(([peopleList]) => {
+      this.setState({
+        peopleList: peopleList,
+        currentListPage: item,
       });
+    });
+    setTimeout(() => console.log(this.state.currentListPage));
   };
 
   renderItems(arr) {
     // eslint-disable-next-line react/prop-types
-    const { OnItemSelected } = this.props;
+    let { OnItemSelected } = this.props;
     return arr.map(({ id, name }) => (
-      <button
-        type="button"
-        className="list-group-item"
-        key={id}
-        onClick={() => OnItemSelected(id)}
-        onKeyDown={() => OnItemSelected(id)}
-      >
-        {name}
-      </button>
+      <Link to={`/people/?page=${this.state.currentListPage}/${id}`}>
+        <li
+          className="list-group-item"
+          key={id}
+          onClick={() => OnItemSelected(id)}
+          onKeyDown={() => OnItemSelected(id)}
+        >
+          {name}
+        </li>
+      </Link>
     ));
   }
 
@@ -65,6 +61,7 @@ export default class ItemList extends Component {
       return <Spinner />;
     }
 
+    const linkOfItems = '/people/?page=';
     const items = this.renderItems(peopleList);
 
     return (
@@ -75,6 +72,7 @@ export default class ItemList extends Component {
             totalCount: peopleCount,
             onSelectNumber: this.onPageChanged,
             currentPage: currentListPage,
+            link: linkOfItems,
           }}
         />
       </div>

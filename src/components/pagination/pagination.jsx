@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SwapiService from '../../services/swapi-service';
+import { Link } from 'react-router-dom';
 
 import './pagination.css';
 
@@ -28,20 +29,22 @@ export default class Pagination extends Component {
         <ul className="pagination">
           {pages.map((item) => {
             return (
-              <li
-                className={
-                  item === currentPage ? 'page-item' : 'page-item-select'
-                }
-                key={item}
-                onClick={() => {
-                  onSelectNumber(item);
-                }}
-                onKeyDown={() => {
-                  onSelectNumber(item);
-                }}
-              >
-                {item}
-              </li>
+              <Link to={`${this.props.data.link}${item}`}>
+                <li
+                  className={
+                    item === currentPage ? 'page-item' : 'page-item-select'
+                  }
+                  key={item}
+                  onClick={() => {
+                    onSelectNumber(item);
+                  }}
+                  onKeyDown={() => {
+                    onSelectNumber(item);
+                  }}
+                >
+                  {item}
+                </li>
+              </Link>
             );
           })}
         </ul>
