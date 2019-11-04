@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import SwapiService from '../../services/swapi-service';
-// import Spinner from '../spinner';
 
 import './person-details.css';
 
@@ -53,7 +52,6 @@ export default class PersonDetails extends Component {
           src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
           alt="character"
         />
-
         <div className="card-body">
           <h4>{name}</h4>
           <ul className="list-group list-group-flush">
