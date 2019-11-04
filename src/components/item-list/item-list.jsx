@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import SwapiService from '../../services/swapi-service';
 import Spinner from '../spinner';
-
+import { Link } from 'react-router-dom';
 import './item-list.css';
-
-// import { CLIENT_RENEG_LIMIT } from 'tls';
+import Pagination from '../pagination/pagination';
 
 export default class ItemList extends Component {
   constructor(props) {
@@ -14,78 +13,68 @@ export default class ItemList extends Component {
 
     this.state = {
       peopleList: null,
-      pageSize: 10,
-      totalPeopleCount: 87,
-      currentPage: 1,
+      peopleCount: null,
+      currentListPage: 1,
     };
   }
 
   componentDidMount() {
-    this.swapiService
-      .getAllPeople(`${this.state.currentPage}`)
-      .then((peopleList) => {
-        this.setState({ peopleList });
+    this.swapiService.getAllPeople(``).then(([peopleList, peopleCount]) => {
+      this.setState({
+        peopleList: peopleList,
+        peopleCount: peopleCount,
       });
+    });
   }
 
   onPageChanged = (item) => {
-    this.setState({ currentPage: item });
-    this.swapiService
-      .getAllPeople(`${this.state.currentPage}`)
-      .then((peopleList) => {
-        this.setState({ peopleList });
+    this.swapiService.getAllPeople(`${item}`).then(([peopleList]) => {
+      this.setState({
+        peopleList: peopleList,
+        currentListPage: item,
       });
+    });
+    setTimeout(() => console.log(this.state.currentListPage));
   };
 
   renderItems(arr) {
     // eslint-disable-next-line react/prop-types
-    const { OnItemSelected } = this.props;
+    let { OnItemSelected } = this.props;
     return arr.map(({ id, name }) => (
-      <button
-        type="button"
-        className="list-group-item"
-        key={id}
-        onClick={() => OnItemSelected(id)}
-        onKeyDown={() => OnItemSelected(id)}
-      >
-        {name}
-      </button>
+      <Link to={`/people/?page=${this.state.currentListPage}/${id}`}>
+        <li
+          className="list-group-item"
+          key={id}
+          onClick={() => OnItemSelected(id)}
+          onKeyDown={() => OnItemSelected(id)}
+        >
+          {name}
+        </li>
+      </Link>
     ));
   }
 
   render() {
-    const { peopleList, pageSize, totalPeopleCount } = this.state;
-    const pagesCount = Math.ceil(totalPeopleCount / pageSize);
-    const pages = [];
-    for (let i = 1; i <= pagesCount; i += 1) {
-      pages.push(i);
-    }
+    const { peopleList, peopleCount, currentListPage } = this.state;
 
     if (!peopleList) {
       return <Spinner />;
     }
 
+    const linkOfItems = '/people/?page=';
     const items = this.renderItems(peopleList);
 
     return (
       <div>
         <ul className="item-list list-group">{items}</ul>
-        <ul>
-          {pages.map((item) => {
-            return (
-              <botton
-                onClick={() => {
-                  this.onPageChanged(item);
-                }}
-                onKeyDown={() => {
-                  this.onPageChanged(item);
-                }}
-              >
-                {item}
-              </botton>
-            );
-          })}
-        </ul>
+        <Pagination
+          data={{
+            totalCount: peopleCount,
+            onSelectNumber: this.onPageChanged,
+            currentPage: currentListPage,
+            link: linkOfItems,
+          }}
+        />
       </div>
     );
   }
