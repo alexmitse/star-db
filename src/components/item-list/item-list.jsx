@@ -28,13 +28,15 @@ export default class ItemList extends Component {
   }
 
   onPageChanged = (item) => {
-    this.swapiService.getAllPeople(`${item}`).then(([peopleList]) => {
-      this.setState({
-        peopleList: peopleList,
-        currentListPage: item,
+    const pagesCount = Math.ceil(this.state.peopleCount / 10);
+    if (item > 0 && item <= pagesCount) {
+      this.swapiService.getAllPeople(`${item}`).then(([peopleList]) => {
+        this.setState({
+          peopleList: peopleList,
+          currentListPage: item,
+        });
       });
-    });
-    setTimeout(() => console.log(this.state.currentListPage));
+    }
   };
 
   renderItems(arr) {

@@ -13,6 +13,7 @@ export default class Pagination extends Component {
       pageSize: 10,
       totalCount: props.data.totalCount,
       currentPage: props.data.currentPage,
+      pageNumber: null,
     };
   }
 
@@ -21,12 +22,21 @@ export default class Pagination extends Component {
     const pagesCount = Math.ceil(totalCount / pageSize);
     const { onSelectNumber, currentPage } = this.props.data;
     const pages = [];
-    for (let i = 1; i <= pagesCount; i += 1) {
+    for (let i = 1; i <= pagesCount / 2; i += 1) {
       pages.push(i);
     }
+
     return (
       <nav aria-label="Page navigation">
         <ul className="pagination">
+          <li
+            className="page-item-select"
+            onClick={() => {
+              onSelectNumber(currentPage - 1);
+            }}
+          >
+            Previous
+          </li>
           {pages.map((item) => {
             return (
               <Link to={`${this.props.data.link}${item}`}>
@@ -47,6 +57,14 @@ export default class Pagination extends Component {
               </Link>
             );
           })}
+          <li
+            className="page-item-select"
+            onClick={() => {
+              onSelectNumber(currentPage + 1);
+            }}
+          >
+            Next
+          </li>
         </ul>
       </nav>
     );

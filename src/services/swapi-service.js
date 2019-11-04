@@ -1,9 +1,13 @@
 export default class SwapiService {
   apiBase = 'https://swapi.co/api';
 
+  async getRequest(url) {
+    const res = await fetch(`${url}`);
+    const resJson = await res.json();
+    return resJson;
+  }
   async getResource(url) {
     const res = await fetch(`${this.apiBase}${url}`);
-
     if (!res.ok) {
       throw new Error(`Could not fetch ${url} , received ${res.status}`);
     }
