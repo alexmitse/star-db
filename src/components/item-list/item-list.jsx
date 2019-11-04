@@ -14,14 +14,28 @@ export default class ItemList extends Component {
 
     this.state = {
       peopleList: null,
+      pageSize: 10,
+      totalPeopleCount: 87,
+      currentPage: 1,
     };
   }
 
   componentDidMount() {
-    this.swapiService.getAllPeople().then((peopleList) => {
-      this.setState({ peopleList });
-    });
+    this.swapiService
+      .getAllPeople(`${this.state.currentPage}`)
+      .then((peopleList) => {
+        this.setState({ peopleList });
+      });
   }
+
+  onPageChanged = (item) => {
+    this.setState({ currentPage: item });
+    this.swapiService
+      .getAllPeople(`${this.state.currentPage}`)
+      .then((peopleList) => {
+        this.setState({ peopleList });
+      });
+  };
 
   renderItems(arr) {
     // eslint-disable-next-line react/prop-types
@@ -40,7 +54,12 @@ export default class ItemList extends Component {
   }
 
   render() {
-    const { peopleList } = this.state;
+    const { peopleList, pageSize, totalPeopleCount } = this.state;
+    const pagesCount = Math.ceil(totalPeopleCount / pageSize);
+    const pages = [];
+    for (let i = 1; i <= pagesCount; i += 1) {
+      pages.push(i);
+    }
 
     if (!peopleList) {
       return <Spinner />;
@@ -48,6 +67,26 @@ export default class ItemList extends Component {
 
     const items = this.renderItems(peopleList);
 
-    return <ul className="item-list list-group">{items}</ul>;
+    return (
+      <div>
+        <ul className="item-list list-group">{items}</ul>
+        <ul>
+          {pages.map((item) => {
+            return (
+              <botton
+                onClick={() => {
+                  this.onPageChanged(item);
+                }}
+                onKeyDown={() => {
+                  this.onPageChanged(item);
+                }}
+              >
+                {item}
+              </botton>
+            );
+          })}
+        </ul>
+      </div>
+    );
   }
 }
