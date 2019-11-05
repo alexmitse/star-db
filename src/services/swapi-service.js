@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 export default class SwapiService {
   apiBase = 'https://swapi.co/api';
 
@@ -6,6 +7,7 @@ export default class SwapiService {
     const resJson = await res.json();
     return resJson;
   }
+
   async getResource(url) {
     const res = await fetch(`${this.apiBase}${url}`);
     if (!res.ok) {

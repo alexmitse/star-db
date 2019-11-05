@@ -1,7 +1,9 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable import/no-extraneous-dependencies */
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import SwapiService from '../../services/swapi-service';
 import Spinner from '../spinner';
-import { Link } from 'react-router-dom';
 import './item-list.css';
 import Pagination from '../pagination/pagination';
 
@@ -21,18 +23,19 @@ export default class ItemList extends Component {
   componentDidMount() {
     this.swapiService.getAllPeople(``).then(([peopleList, peopleCount]) => {
       this.setState({
-        peopleList: peopleList,
-        peopleCount: peopleCount,
+        peopleList,
+        peopleCount,
       });
     });
   }
 
   onPageChanged = (item) => {
-    const pagesCount = Math.ceil(this.state.peopleCount / 10);
+    const { peopleCount } = this.state;
+    const pagesCount = Math.ceil(peopleCount / 10);
     if (item > 0 && item <= pagesCount) {
       this.swapiService.getAllPeople(`${item}`).then(([peopleList]) => {
         this.setState({
-          peopleList: peopleList,
+          peopleList,
           currentListPage: item,
         });
       });
@@ -41,9 +44,10 @@ export default class ItemList extends Component {
 
   renderItems(arr) {
     // eslint-disable-next-line react/prop-types
-    let { OnItemSelected } = this.props;
+    const { OnItemSelected } = this.props;
+    const { currentListPage } = this.state;
     return arr.map(({ id, name }) => (
-      <Link to={`/people/?page=${this.state.currentListPage}/${id}`}>
+      <Link to={`/people/?page=${currentListPage}/${id}`}>
         <li
           className="list-group-item"
           key={id}
@@ -70,12 +74,10 @@ export default class ItemList extends Component {
       <div>
         <ul className="item-list list-group">{items}</ul>
         <Pagination
-          data={{
-            totalCount: peopleCount,
-            onSelectNumber: this.onPageChanged,
-            currentPage: currentListPage,
-            link: linkOfItems,
-          }}
+          totalCount={peopleCount}
+          onSelectNumber={this.onPageChanged}
+          currentPage={currentListPage}
+          link={linkOfItems}
         />
       </div>
     );

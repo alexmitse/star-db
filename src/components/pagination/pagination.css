@@ -1,4 +1,4 @@
-.page-item {
+.page-item-selected {
   display: flex;
   justify-content: space-around;
   background-color: #00bc8c;
