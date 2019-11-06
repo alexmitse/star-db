@@ -67,7 +67,15 @@ export default class Pagination extends Component {
           >
             {pages[1]}
           </li>
-          <li>...</li>
+          <li
+            style={
+              currentPage > 3 && currentPage < pages.slice(-2)[0]
+                ? { display: 'block' }
+                : { display: 'none' }
+            }
+          >
+            {currentPage > 3 && currentPage < pages.slice(-2)[0] ? '...' : null}
+          </li>
           <li
             className={
               currentPage > 2 && currentPage < 8
@@ -75,9 +83,19 @@ export default class Pagination extends Component {
                 : 'page-item'
             }
           >
-            {currentPage > 2 && currentPage < 8 ? currentPage : ''}
+            {currentPage > 2 && currentPage < pages.slice(-2)[0]
+              ? currentPage
+              : '...'}
           </li>
-          <li>...</li>
+          <li
+            style={
+              currentPage > 2 && currentPage < pages.slice(-3)[0]
+                ? { display: 'block' }
+                : { display: 'none' }
+            }
+          >
+            {currentPage > 2 && currentPage < pages.slice(-3)[0] ? '...' : null}
+          </li>
           <li
             className={
               currentPage === pages.slice(-2)[0]
