@@ -22,8 +22,8 @@ const Header = () => {
           <Route path="/people" exact component={PeoplePage} />
           <Route path="/planet" component={PlanetDitails} />
           <Route path="/starship" component={StarshipDetails} />
-          <Route path="/people/?page=:id" component={ItemList} />
-          <Route path="/people/?page=:id/person:id" component={PersonDetails} />
+          <ItemList />
+          <PersonDetails />
         </Switch>
       </div>
     </Router>

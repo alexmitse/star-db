@@ -47,7 +47,7 @@ export default class ItemList extends Component {
     const { OnItemSelected } = this.props;
     const { currentListPage } = this.state;
     return arr.map(({ id, name }) => (
-      <Link to={`/people/?page=${currentListPage}/${id}`}>
+      <Link to={`?page=${currentListPage}&?persone=${id}`}>
         <li
           className="list-group-item"
           key={id}
@@ -67,7 +67,6 @@ export default class ItemList extends Component {
       return <Spinner />;
     }
 
-    const linkOfItems = '/people/?page=';
     const items = this.renderItems(peopleList);
 
     return (
@@ -77,7 +76,6 @@ export default class ItemList extends Component {
           totalCount={peopleCount}
           onSelectNumber={this.onPageChanged}
           currentPage={currentListPage}
-          link={linkOfItems}
         />
       </div>
     );
