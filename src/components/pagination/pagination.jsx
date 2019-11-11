@@ -1,138 +1,181 @@
+/* eslint-disable no-return-assign */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
-import SwapiService from '../../services/swapi-service';
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 import './pagination.css';
 
-export default class Pagination extends Component {
-  constructor(props) {
-    super(props);
-    this.swapiService = new SwapiService();
+export default function Pagination({
+  totalCount,
+  currentPage,
+  onSelectNumber,
+}) {
+  const [pageSize] = useState(10);
+  const [totalCounts] = useState(totalCount);
+  const [currentPages, setCurrentPages] = useState(currentPage);
+  const [prevPage, setPrevPage] = useState(0);
 
-    this.state = {
-      pageSize: 10,
-      totalCount: props.totalCount,
-      currentPage: props.currentPage,
-    };
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
   }
 
-  onRenderPageNumber = (item) => {
-    this.setState({ currentPage: item });
-  };
+  const query = useQuery();
+  const pagesCount = Math.ceil(totalCounts / pageSize);
 
-  render() {
-    const { pageSize, totalCount, currentPage } = this.state;
-    const pagesCount = Math.ceil(totalCount / pageSize);
-    const { onSelectNumber } = this.props;
-    const pages = [];
-    for (let i = 1; i <= pagesCount; i += 1) {
-      pages.push(i);
-    }
+  const pages = [];
+  for (let i = 1; i <= pagesCount; i += 1) {
+    pages.push(i);
+  }
 
-    return (
-      <nav aria-label="Page navigation">
-        <ul className="pagination">
+  if (prevPage !== query.get('page')) {
+    onSelectNumber(query.get('page'));
+    setCurrentPages(query.get('page'));
+    setPrevPage(query.get('page'));
+  }
+
+  return (
+    <nav aria-label="Page navigation">
+      <ul className="pagination">
+        <Link
+          to={`/people?page=${
+            +currentPages === pages[0] ? +currentPage : +currentPage - 1
+          }`}
+        >
           <li
             className="page-item-select"
             onClick={() => {
-              onSelectNumber(currentPage - 1);
-              this.onRenderPageNumber(currentPage - 1);
+              onSelectNumber(
+                +currentPages === pages[0] ? +currentPages : +currentPages - 1,
+              );
+              setCurrentPages(
+                +currentPages === pages[0] ? +currentPages : +currentPages - 1,
+              );
             }}
           >
             Previous
           </li>
+        </Link>
+        <Link to={`/people?page=${pages[0]}`}>
           <li
             className={
-              currentPage === pages[0] ? 'page-item-selected' : 'page-item'
+              +currentPages === pages[0] ? 'page-item-selected' : 'page-item'
             }
             onClick={() => {
               onSelectNumber(pages[0]);
-              this.onRenderPageNumber(pages[0]);
+              setCurrentPages(pages[0]);
             }}
           >
             {pages[0]}
           </li>
+        </Link>
+        <Link to={`/people?page=${pages[1]}`}>
           <li
             className={
-              currentPage === pages[1] ? 'page-item-selected' : 'page-item'
+              +currentPages === pages[1] ? 'page-item-selected' : 'page-item'
             }
             onClick={() => {
               onSelectNumber(pages[1]);
-              this.onRenderPageNumber(pages[1]);
+              setCurrentPages(pages[1]);
             }}
           >
             {pages[1]}
           </li>
-          <li
-            style={
-              currentPage > 3 && currentPage < pages.slice(-2)[0]
-                ? { display: 'block' }
-                : { display: 'none' }
-            }
-          >
-            {currentPage > 3 && currentPage < pages.slice(-2)[0] ? '...' : null}
-          </li>
+        </Link>
+        <li
+          className="page-item"
+          style={
+            +currentPages > 3 && currentPages < pages.slice(-2)[0]
+              ? { display: 'flex' }
+              : { display: 'none' }
+          }
+        >
+          {currentPages > 3 && currentPages < pages.slice(-2)[0] ? '...' : null}
+        </li>
+        <Link to={`/people?page=${currentPages}`}>
           <li
             className={
-              currentPage > 2 && currentPage < 8
+              currentPages > 2 && currentPages < 8
                 ? 'page-item-selected'
                 : 'page-item'
             }
           >
-            {currentPage > 2 && currentPage < pages.slice(-2)[0]
-              ? currentPage
+            {currentPages > 2 && currentPages < pages.slice(-2)[0]
+              ? currentPages
               : '...'}
           </li>
-          <li
-            style={
-              currentPage > 2 && currentPage < pages.slice(-3)[0]
-                ? { display: 'block' }
-                : { display: 'none' }
-            }
-          >
-            {currentPage > 2 && currentPage < pages.slice(-3)[0] ? '...' : null}
-          </li>
+        </Link>
+        <li
+          className="page-item"
+          style={
+            +currentPages > 2 && currentPages < pages.slice(-3)[0]
+              ? { display: 'block' }
+              : { display: 'none' }
+          }
+        >
+          {currentPages > 2 && currentPages < pages.slice(-3)[0] ? '...' : null}
+        </li>
+        <Link to={`/people?page=${pages.slice(-2)[0]}`}>
           <li
             className={
-              currentPage === pages.slice(-2)[0]
+              +currentPages === pages.slice(-2)[0]
                 ? 'page-item-selected'
                 : 'page-item'
             }
             onClick={() => {
               onSelectNumber(pages.slice(-2)[0]);
-              this.onRenderPageNumber(pages.slice(-2)[0]);
+              setCurrentPages(pages.slice(-2)[0]);
             }}
           >
             {pages.slice(-2)[0]}
           </li>
+        </Link>
+        <Link to={`/people?page=${pages.slice(-1)[0]}`}>
           <li
             className={
-              currentPage === pages.slice(-1)[0]
+              +currentPages === pages.slice(-1)[0]
                 ? 'page-item-selected'
                 : 'page-item'
             }
             onClick={() => {
               onSelectNumber(pages.slice(-1)[0]);
-              this.onRenderPageNumber(pages.slice(-1)[0]);
+              setCurrentPages(pages.slice(-1)[0]);
             }}
           >
             {pages.slice(-1)[0]}
           </li>
+        </Link>
+        <Link
+          to={`/people?page=${
+            +currentPages === pages.slice(-1)[0] &&
+            +currentPages > pages.slice(-1)[0]
+              ? +currentPages
+              : +currentPages + 1
+          }`}
+        >
           <li
             className="page-item-select"
             onClick={() => {
-              onSelectNumber(currentPage + 1);
-              this.onRenderPageNumber(currentPage + 1);
+              onSelectNumber(
+                +currentPages === pages.slice(-1)[0] &&
+                  +currentPages > pages.slice(-1)[0]
+                  ? currentPages
+                  : +currentPages + 1,
+              );
+              setCurrentPages(
+                +currentPages === pages.slice(-1)[0] &&
+                  +currentPages > pages.slice(-1)[0]
+                  ? +currentPages
+                  : +currentPages + 1,
+              );
             }}
           >
             Next
           </li>
-        </ul>
-      </nav>
-    );
-  }
+        </Link>
+      </ul>
+    </nav>
+  );
 }
