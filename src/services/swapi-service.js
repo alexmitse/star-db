@@ -1,9 +1,15 @@
+/* eslint-disable class-methods-use-this */
 export default class SwapiService {
   apiBase = 'https://swapi.co/api';
 
+  async getRequest(url) {
+    const res = await fetch(`${url}`);
+    const resJson = await res.json();
+    return resJson;
+  }
+
   async getResource(url) {
     const res = await fetch(`${this.apiBase}${url}`);
-
     if (!res.ok) {
       throw new Error(`Could not fetch ${url} , received ${res.status}`);
     }
@@ -11,9 +17,9 @@ export default class SwapiService {
     return resJson;
   }
 
-  async getAllPeople() {
-    const res = await this.getResource(`/people/`);
-    return res.results.map(this.transformPerson);
+  async getAllPeople(number) {
+    const res = await this.getResource(`/people/?page=${number}`);
+    return [res.results.map(this.transformPerson), res.count];
   }
 
   async getPerson(id) {

@@ -1,24 +1,33 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 
-import './header.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import PeoplePage from '../people-page';
+import Nav from '../nav';
+import PlanetDitails from '../planet-details';
+import StarshipDetails from '../starship-details';
+import MainPage from '../main-page';
 
-const Header = () => (
-  <div className="header d-flex">
-    <h3>
-      <botton>Star DB</botton>
-    </h3>
-    <ul className="d-flex">
-      <li>
-        <botton>People</botton>
-      </li>
-      <li>
-        <botton>Planets</botton>
-      </li>
-      <li>
-        <botton>Starships</botton>
-      </li>
-    </ul>
-  </div>
-);
+import './header.css';
+import ItemList from '../item-list';
+import PersonDetails from '../person-details';
+
+const Header = () => {
+  return (
+    <Router>
+      <div className="header d-flex">
+        <Nav />
+        <Switch>
+          <Route path="/" exact component={MainPage} />
+          <Route path="/people" exact component={PeoplePage} />
+          <Route path="/planet" component={PlanetDitails} />
+          <Route path="/starship" component={StarshipDetails} />
+          <Route path="/people/?page=:id" component={ItemList} />
+          <Route path="/people/?page=:id/person:id" component={PersonDetails} />
+        </Switch>
+      </div>
+    </Router>
+  );
+};
 
 export default Header;
