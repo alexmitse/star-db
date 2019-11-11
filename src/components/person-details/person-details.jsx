@@ -31,7 +31,6 @@ export default class PersonDetails extends Component {
     if (!personId) {
       return;
     }
-
     this.swapiService.getPerson(personId).then((person) => {
       this.setState({ person });
     });

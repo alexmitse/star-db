@@ -7,7 +7,7 @@ export default class PeolpePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedPerson: 1,
+      selectedPerson: null,
     };
   }
 

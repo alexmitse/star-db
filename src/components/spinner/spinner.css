@@ -147,8 +147,7 @@
 .lds-double-ring {
   width: 77px !important;
   height: 77px !important;
-  -webkit-transform:
-    translate(-38.5px, -38.5px) scale(0.385)
+  -webkit-transform: translate(-38.5px, -38.5px) scale(0.385)
     translate(38.5px, 38.5px);
   transform: translate(-38.5px, -38.5px) scale(0.385) translate(38.5px, 38.5px);
 }

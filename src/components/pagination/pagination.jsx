@@ -3,178 +3,68 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './pagination.css';
+
+function PaginationItem({ currentPage, page, onClick, label = page }) {
+  return (
+    <Link
+      to={`?page=${page}`}
+      className={currentPage === page ? 'page-item-selected' : 'page-item'}
+      onClick={() => {
+        onClick(page);
+      }}
+    >
+      {label}
+    </Link>
+  );
+}
 
 export default function Pagination({
   totalCount,
   currentPage,
   onSelectNumber,
+  pageSize,
 }) {
-  const [pageSize] = useState(10);
-  const [totalCounts] = useState(totalCount);
-  const [currentPages, setCurrentPages] = useState(currentPage);
-  const [prevPage, setPrevPage] = useState(0);
+  const pagesCount = Math.ceil(totalCount / pageSize);
 
-  function useQuery() {
-    return new URLSearchParams(useLocation().search);
-  }
-
-  const query = useQuery();
-  const pagesCount = Math.ceil(totalCounts / pageSize);
-
-  const pages = [];
-  for (let i = 1; i <= pagesCount; i += 1) {
-    pages.push(i);
-  }
-
-  if (prevPage !== query.get('page')) {
-    onSelectNumber(query.get('page'));
-    setCurrentPages(query.get('page'));
-    setPrevPage(query.get('page'));
-  }
+  const pagesToDraw = new Array(pagesCount)
+    .fill()
+    .map((_, index) => index + 1)
+    .map((page) => {
+      return (
+        <li key={page}>
+          <PaginationItem
+            page={page}
+            currentPage={currentPage}
+            onClick={onSelectNumber}
+          />
+        </li>
+      );
+    });
 
   return (
     <nav aria-label="Page navigation">
       <ul className="pagination">
-        <Link
-          to={`/people?page=${
-            +currentPages === pages[0] ? +currentPage : +currentPage - 1
-          }`}
-        >
-          <li
-            className="page-item-select"
-            onClick={() => {
-              onSelectNumber(
-                +currentPages === pages[0] ? +currentPages : +currentPages - 1,
-              );
-              setCurrentPages(
-                +currentPages === pages[0] ? +currentPages : +currentPages - 1,
-              );
-            }}
-          >
-            Previous
-          </li>
-        </Link>
-        <Link to={`/people?page=${pages[0]}`}>
-          <li
-            className={
-              +currentPages === pages[0] ? 'page-item-selected' : 'page-item'
-            }
-            onClick={() => {
-              onSelectNumber(pages[0]);
-              setCurrentPages(pages[0]);
-            }}
-          >
-            {pages[0]}
-          </li>
-        </Link>
-        <Link to={`/people?page=${pages[1]}`}>
-          <li
-            className={
-              +currentPages === pages[1] ? 'page-item-selected' : 'page-item'
-            }
-            onClick={() => {
-              onSelectNumber(pages[1]);
-              setCurrentPages(pages[1]);
-            }}
-          >
-            {pages[1]}
-          </li>
-        </Link>
-        <li
-          className="page-item"
-          style={
-            +currentPages > 3 && currentPages < pages.slice(-2)[0]
-              ? { display: 'flex' }
-              : { display: 'none' }
-          }
-        >
-          {currentPages > 3 && currentPages < pages.slice(-2)[0] ? '...' : null}
+        <li className="page-item-select">
+          <PaginationItem
+            page={currentPage - 1}
+            currentPage={currentPage}
+            onClick={onSelectNumber}
+            label="Previous"
+          />
         </li>
-        <Link to={`/people?page=${currentPages}`}>
-          <li
-            className={
-              currentPages > 2 && currentPages < 8
-                ? 'page-item-selected'
-                : 'page-item'
-            }
-          >
-            {currentPages > 2 && currentPages < pages.slice(-2)[0]
-              ? currentPages
-              : '...'}
-          </li>
-        </Link>
-        <li
-          className="page-item"
-          style={
-            +currentPages > 2 && currentPages < pages.slice(-3)[0]
-              ? { display: 'block' }
-              : { display: 'none' }
-          }
-        >
-          {currentPages > 2 && currentPages < pages.slice(-3)[0] ? '...' : null}
+        {pagesToDraw}
+        <li className="page-item-select">
+          <PaginationItem
+            page={currentPage + 1}
+            currentPage={currentPage}
+            onClick={onSelectNumber}
+            label="Next"
+          />
         </li>
-        <Link to={`/people?page=${pages.slice(-2)[0]}`}>
-          <li
-            className={
-              +currentPages === pages.slice(-2)[0]
-                ? 'page-item-selected'
-                : 'page-item'
-            }
-            onClick={() => {
-              onSelectNumber(pages.slice(-2)[0]);
-              setCurrentPages(pages.slice(-2)[0]);
-            }}
-          >
-            {pages.slice(-2)[0]}
-          </li>
-        </Link>
-        <Link to={`/people?page=${pages.slice(-1)[0]}`}>
-          <li
-            className={
-              +currentPages === pages.slice(-1)[0]
-                ? 'page-item-selected'
-                : 'page-item'
-            }
-            onClick={() => {
-              onSelectNumber(pages.slice(-1)[0]);
-              setCurrentPages(pages.slice(-1)[0]);
-            }}
-          >
-            {pages.slice(-1)[0]}
-          </li>
-        </Link>
-        <Link
-          to={`/people?page=${
-            +currentPages === pages.slice(-1)[0] &&
-            +currentPages > pages.slice(-1)[0]
-              ? +currentPages
-              : +currentPages + 1
-          }`}
-        >
-          <li
-            className="page-item-select"
-            onClick={() => {
-              onSelectNumber(
-                +currentPages === pages.slice(-1)[0] &&
-                  +currentPages > pages.slice(-1)[0]
-                  ? currentPages
-                  : +currentPages + 1,
-              );
-              setCurrentPages(
-                +currentPages === pages.slice(-1)[0] &&
-                  +currentPages > pages.slice(-1)[0]
-                  ? +currentPages
-                  : +currentPages + 1,
-              );
-            }}
-          >
-            Next
-          </li>
-        </Link>
       </ul>
     </nav>
   );
