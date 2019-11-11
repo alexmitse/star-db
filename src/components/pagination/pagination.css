@@ -7,3 +7,13 @@
   display: flex;
   justify-content: space-around;
 }
+.page-item-selected {
+  display: flex;
+  justify-content: space-around;
+  background-color: #00bc8c;
+  color: grey;
+}
+.page-item {
+  display: flex;
+  justify-content: space-around;
+}
