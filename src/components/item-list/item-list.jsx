@@ -23,7 +23,7 @@ export default function ItemList({ OnItemSelected }) {
         setPeopleCount(peopleCountFromServer);
         setPeopleList(peopleListFromServer);
       });
-  }, []);
+  }, [swapiService]);
 
   function onPageChanged(item) {
     const pagesCount = Math.ceil(peopleCount / 10);
