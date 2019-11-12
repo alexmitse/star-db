@@ -1,3 +1,3 @@
-import Pagination from './pagination';
+import ListeningQuery from './listening-query';
 
-export default Pagination;
+export default ListeningQuery;
