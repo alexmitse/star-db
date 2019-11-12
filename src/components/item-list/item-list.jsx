@@ -13,6 +13,7 @@ export default function ItemList({ OnItemSelected }) {
   const [peopleCount, setPeopleCount] = useState(null);
   const [currentListPage, setCurrentListPage] = useState(1);
   const [prevPage, setPrevPage] = useState(null);
+  const [pageSize] = useState(10);
 
   const swapiService = new SwapiService();
 
@@ -43,7 +44,7 @@ export default function ItemList({ OnItemSelected }) {
     // eslint-disable-next-line react/prop-types
 
     return arr.map(({ id, name }) => (
-      <Link to={`/people?persone=${id}`}>
+      <Link to={`/people?page=${currentListPage}&persone=${id}`}>
         <li
           className="list-group-item"
           key={id}
@@ -74,6 +75,7 @@ export default function ItemList({ OnItemSelected }) {
         totalCount={peopleCount}
         onSelectNumber={onPageChanged}
         currentPage={currentListPage}
+        pageSize={pageSize}
       />
     </div>
   );

@@ -15,7 +15,7 @@ import PersonDetails from '../person-details';
 const Header = () => {
   return (
     <Router>
-      <div className="header d-flex">
+      <div className="header">
         <Nav />
         <Switch>
           <Route path="/" exact component={MainPage} />

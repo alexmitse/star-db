@@ -1,9 +1,18 @@
+.main-content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .show-planet {
   display: flex;
   justify-content: center;
-  margin-top: 2rem;
+  margin: 0;
 }
 
 .toggle-planet {
-  margin-bottom: 1rem;
+  display: flex;
+  height: 50px;
+  width: 70px;
+  margin: 0;
 }
