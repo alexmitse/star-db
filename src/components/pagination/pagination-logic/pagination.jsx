@@ -8,10 +8,10 @@ import { Link } from 'react-router-dom';
 
 import './pagination.css';
 
-function PaginationItem({ currentPage, page, onClick, label = page }) {
+function PaginationItem({ currentPage, page, onClick, label = page, id }) {
   return (
     <Link
-      to={`?page=${page}`}
+      to={`?page=${page}&persone=${id}`}
       className={currentPage === page ? 'page-item-selected' : 'page-item'}
       onClick={() => {
         onClick(page);
@@ -27,6 +27,7 @@ export default function Pagination({
   currentPage,
   onSelectNumber,
   pageSize,
+  id,
 }) {
   const pagesCount = Math.ceil(totalCount / pageSize);
 
@@ -40,6 +41,7 @@ export default function Pagination({
             page={page}
             currentPage={currentPage}
             onClick={onSelectNumber}
+            id={id}
           />
         </li>
       );
@@ -54,15 +56,17 @@ export default function Pagination({
             currentPage={currentPage}
             onClick={onSelectNumber}
             label="Previous"
+            id={id}
           />
         </li>
         {pagesToDraw}
         <li className="page-item-select">
           <PaginationItem
-            page={currentPage + 1}
+            page={+currentPage + 1}
             currentPage={currentPage}
             onClick={onSelectNumber}
             label="Next"
+            id={id}
           />
         </li>
       </ul>
