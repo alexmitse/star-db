@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ItemList from '../item-list';
 import Pagination from '../pagination';
-
+import Spinner from '../spinner';
 import './people-page-list.css';
 import SwapiService from '../../services/swapi-service';
 
@@ -16,7 +16,7 @@ export default function PeolpePageList() {
 
   useEffect(() => {
     swapiService
-      .getAllPeople(`${page !== ':page' ? page : ''}`)
+      .getAllPeople(`${page === ':page' || page > 9 || page < 1 ? '' : page} `)
       .then(([peopleListFromServer, peopleCountFromServer]) => {
         setPeopleCount(peopleCountFromServer);
         setPeopleList(peopleListFromServer);
@@ -24,12 +24,17 @@ export default function PeolpePageList() {
   }, []);
 
   const onChangeCurrentElement = (element) => {
-    swapiService.getAllPeople(`${element}`).then(([peopleListFromServer]) => {
-      setPeopleList(peopleListFromServer);
-      setCurrentElement(element);
-    });
+    if (!(element > 9 || element < 1)) {
+      swapiService.getAllPeople(`${element}`).then(([peopleListFromServer]) => {
+        setPeopleList(peopleListFromServer);
+        setCurrentElement(element);
+      });
+    }
   };
 
+  if (!peopleList) {
+    return <Spinner />;
+  }
   return (
     <div className="row mb2">
       <div className="col-md-6">

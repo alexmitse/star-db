@@ -45,6 +45,10 @@
   }
 }
 
+.lds-css {
+  display: flex;
+  justify-content: center;
+}
 .lds-double-ring {
   position: relative;
 }
