@@ -11,7 +11,7 @@ const Nav = () => {
         <h3 className="name-db">Star DB</h3>
       </Link>
       <ul className="nav-links">
-        <Link to="/people">
+        <Link to="/people/:page">
           <li>People</li>
         </Link>
         <Link to="/planet">
