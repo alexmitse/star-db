@@ -3,19 +3,17 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import './pagination.css';
 
-function PaginationItem({ currentPage, page, onClick, label = page, id }) {
+function PaginationItem({ currentPage, page, label = page, onClick }) {
   return (
     <Link
-      to={`?page=${page}&persone=${id}`}
-      className={currentPage === page ? 'page-item-selected' : 'page-item'}
-      onClick={() => {
-        onClick(page);
-      }}
+      to={`/people/${page}`}
+      onClick={() => onClick(page)}
+      className="page-item"
     >
       {label}
     </Link>
@@ -25,10 +23,9 @@ function PaginationItem({ currentPage, page, onClick, label = page, id }) {
 export default function Pagination({
   totalCount,
   currentPage,
-  onSelectNumber,
-  pageSize,
-  id,
+  setCurrentPage,
 }) {
+  const [pageSize] = useState(10);
   const pagesCount = Math.ceil(totalCount / pageSize);
 
   const pagesToDraw = new Array(pagesCount)
@@ -40,8 +37,7 @@ export default function Pagination({
           <PaginationItem
             page={page}
             currentPage={currentPage}
-            onClick={onSelectNumber}
-            id={id}
+            onClick={setCurrentPage}
           />
         </li>
       );
@@ -54,9 +50,8 @@ export default function Pagination({
           <PaginationItem
             page={currentPage - 1}
             currentPage={currentPage}
-            onClick={onSelectNumber}
+            onClick={setCurrentPage}
             label="Previous"
-            id={id}
           />
         </li>
         {pagesToDraw}
@@ -64,9 +59,8 @@ export default function Pagination({
           <PaginationItem
             page={+currentPage + 1}
             currentPage={currentPage}
-            onClick={onSelectNumber}
+            onClick={setCurrentPage}
             label="Next"
-            id={id}
           />
         </li>
       </ul>

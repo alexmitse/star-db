@@ -31,15 +31,18 @@ export default class MainPage extends Component {
     const planet = showRandomPlanet ? <RandomPlanet /> : null;
     return (
       <div className="main-content">
-        <div className="show-planet">{planet}</div>
-
-        <button
-          type="button"
-          className="toggle-planet btn btn-warning btn-lg"
-          onClick={this.toggleRandomPlanet}
-        >
-          Toggle Random Planet
-        </button>
+        <div className="show-planet">
+          {planet}
+          <div className="toggle-planet">
+            <button
+              type="button"
+              className="btn-toggle-planet"
+              onClick={this.toggleRandomPlanet}
+            >
+              Toggle Random Planet
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
