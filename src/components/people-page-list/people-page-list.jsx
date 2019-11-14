@@ -9,7 +9,7 @@ import SwapiService from '../../services/swapi-service';
 
 export default function PeolpePageList() {
   const swapiService = new SwapiService();
-  let { page } = useParams();
+  const { page } = useParams();
   const [peopleCount, setPeopleCount] = useState(null);
   const [peopleList, setPeopleList] = useState(null);
   const [currentElement, setCurrentElement] = useState(1);

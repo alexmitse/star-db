@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 import './pagination.css';
 
-function PaginationItem({ currentPage, page, label = page, onClick }) {
+function PaginationItem({ page, label = page, onClick }) {
   return (
     <Link
       to={`/people/${page}`}
