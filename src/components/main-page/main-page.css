@@ -3,9 +3,6 @@
   justify-content: center;
 }
 
-.show-planet {
-}
-
 .toggle-planet {
   display: flex;
   justify-content: flex-end;
@@ -14,6 +11,7 @@
 
 .btn-toggle-planet {
   border: none;
+  border-radius: 5px;
   background: rgb(142, 197, 147);
   height: 50px;
   width: 150px;

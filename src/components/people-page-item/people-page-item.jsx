@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import PersonDetails from '../person-details';
@@ -6,7 +7,7 @@ import SwapiService from '../../services/swapi-service';
 import Spinner from '../spinner';
 
 export default function PeolpePageList() {
-  let { id } = useParams();
+  const { id } = useParams();
   const swapiService = new SwapiService();
   const [person, setPerson] = useState(null);
 

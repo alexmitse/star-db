@@ -7,9 +7,7 @@ import { Link } from 'react-router-dom';
 import Spinner from '../spinner';
 import './item-list.css';
 
-export default function ItemList({ list, onClicky }) {
-  // читать квери для передачи данных в pagination
-
+export default function ItemList({ list }) {
   function renderItems(arr) {
     // eslint-disable-next-line react/prop-types
     return arr.map(({ id, name }) => (
