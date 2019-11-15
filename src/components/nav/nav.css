@@ -1,16 +1,18 @@
 .navigation {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   height: 60px;
   margin-right: 20px;
 }
-.name-db,
-a {
+.img-star-wars {
   display: flex;
-  height: 40px;
+  justify-content: center;
+  padding-top: 30px;
 }
-.nav-links {
-  display: flex;
-  justify-content: flex-start;
-  height: 40px;
+.container-nav-links {
+  margin-bottom: 100px;
+}
+li {
+  background-color: chartreuse;
 }

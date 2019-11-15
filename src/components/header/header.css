@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  padding: 10px;
+  padding: 100px;
   margin: 0.5rem;
 }
 
@@ -27,4 +27,14 @@
 
 .header h3 a:hover {
   color: #00bc8c;
+}
+
+.header-nav {
+  display: flex;
+  justify-content: space-around;
+}
+
+.header-components {
+  display: flex;
+  padding-top: 100px;
 }
