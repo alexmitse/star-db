@@ -55,7 +55,7 @@ export default function Pagination({
         {pagesToDraw}
         <li className="page-item-select">
           <PaginationItem
-            page={+currentPage >= 9 ? 9 : +currentPage + 1}
+            page={+currentPage >= pagesCount ? pagesCount : +currentPage + 1}
             onClick={setCurrentPage}
             label="Next"
           />
