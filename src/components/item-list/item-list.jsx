@@ -4,7 +4,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Spinner from '../spinner';
 import './item-list.css';
 
 export default function ItemList({ list }) {
@@ -17,10 +16,6 @@ export default function ItemList({ list }) {
         </Link>
       </li>
     ));
-  }
-
-  if (!list) {
-    return <Spinner />;
   }
 
   return (

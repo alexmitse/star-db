@@ -27,7 +27,6 @@ export default function Pagination({
 }) {
   const [pageSize] = useState(10);
   const pagesCount = Math.ceil(totalCount / pageSize);
-
   const pagesToDraw = new Array(pagesCount)
     .fill()
     .map((_, index) => index + 1)
@@ -48,8 +47,7 @@ export default function Pagination({
       <ul className="pagination">
         <li className="page-item-select">
           <PaginationItem
-            page={currentPage - 1}
-            currentPage={currentPage}
+            page={currentPage <= 1 ? 1 : currentPage - 1}
             onClick={setCurrentPage}
             label="Previous"
           />
@@ -57,8 +55,7 @@ export default function Pagination({
         {pagesToDraw}
         <li className="page-item-select">
           <PaginationItem
-            page={+currentPage + 1}
-            currentPage={currentPage}
+            page={+currentPage >= pagesCount ? pagesCount : +currentPage + 1}
             onClick={setCurrentPage}
             label="Next"
           />
