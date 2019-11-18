@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -6,20 +7,29 @@ import './nav.css';
 const Nav = () => {
   return (
     <nav className=" navigation">
-      <Link to="/">
-        <h3 className="name-db">Star DB</h3>
-      </Link>
-      <ul className="nav-links">
-        <Link to="/people">
-          <li>People</li>
+      <div className="img-star-wars">
+        <Link to="/">
+          <img
+            src="https://media.graytvinc.com/images/810*455/Star+Wars49.jpg"
+            alt="StarDB"
+            width="200px"
+            height="110px"
+          />
         </Link>
-        <Link to="/planet">
-          <li>Planets</li>
-        </Link>
-        <Link to="/starship">
-          <li>Starships</li>
-        </Link>
-      </ul>
+      </div>
+      <div className="container-nav-links">
+        <ul className="nav-links">
+          <li className="li-nav-links">
+            <Link to="/people/1">PEOPLE</Link>
+          </li>
+          <li className="li-nav-links">
+            <Link to="/planet">PLANETS</Link>
+          </li>
+          <li className="li-nav-links">
+            <Link to="/starship">STARSHIPS</Link>
+          </li>
+        </ul>
+      </div>
     </nav>
   );
 };

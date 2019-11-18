@@ -1,27 +1,19 @@
 .header {
-  padding-left: 10px;
-  margin-top: 0.5rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+div.img-star-wars {
+  padding: 0px;
 }
 
-.header ul li {
-  padding: 0.5rem 1rem;
-  margin: 0;
-  border-radius: 3px;
-  list-style: none;
+.header-nav {
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }
 
-.header ul li:hover {
-  background-color: #444;
-}
-
-.header h3 a {
-  color: white;
-}
-
-.header a:hover {
-  text-decoration: none;
-}
-
-.header h3 a:hover {
-  color: #00bc8c;
+.header-components {
+  display: flex;
+  justify-content: center;
 }

@@ -79,7 +79,7 @@ const PlanetView = (prop) => {
         src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
         alt="i'm so sorry"
       />
-      <div>
+      <div className="planet-information">
         <h4>{name}</h4>
         <ul className="list-group list-group-flush">
           <li className="list-group-item">

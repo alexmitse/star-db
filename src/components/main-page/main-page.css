@@ -1,9 +1,24 @@
-.show-planet {
+.main-content {
   display: flex;
   justify-content: center;
-  margin-top: 2rem;
 }
 
 .toggle-planet {
-  margin-bottom: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.btn-toggle-planet {
+  background-color: rgb(10, 10, 10);
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: rgba(241, 233, 233, 0.459);
+  border-style: solid;
+  height: 50px;
+  width: 150px;
+  font-family: 'DIN Next W01 Regular', Helvetica, Arial, sans-serif;
+  color: rgba(241, 233, 233, 0.459);
+  text-decoration: none;
+  cursor: pointer;
 }

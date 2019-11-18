@@ -1,5 +1,30 @@
-.page-item {
+nav {
   display: flex;
-  justify-content: space-around;
-  background-color: #00bc8c;
+  justify-content: center;
+}
+
+.pagination {
+  margin-left: -20px;
+}
+
+.page-item {
+  padding: 7px;
+  margin: 5px;
+  background-color: rgb(10, 10, 10);
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: rgba(241, 233, 233, 0.459);
+  border-style: solid;
+  font-family: 'DIN Next W01 Regular', Helvetica, Arial, sans-serif;
+  color: rgba(241, 233, 233, 0.459);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.page-item:hover {
+  background-color: rgba(241, 233, 233, 0.459);
+}
+
+.page-item:focus {
+  background-color: rgba(241, 233, 233, 0.459);
 }

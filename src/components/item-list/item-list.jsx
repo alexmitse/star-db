@@ -1,83 +1,26 @@
-import React, { Component } from 'react';
-import SwapiService from '../../services/swapi-service';
-import Spinner from '../spinner';
+/* eslint-disable react/prop-types */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable import/no-extraneous-dependencies */
+import React from 'react';
 import { Link } from 'react-router-dom';
+
 import './item-list.css';
-import Pagination from '../pagination/pagination';
 
-export default class ItemList extends Component {
-  constructor(props) {
-    super(props);
-
-    this.swapiService = new SwapiService();
-
-    this.state = {
-      peopleList: null,
-      peopleCount: null,
-      currentListPage: 1,
-    };
-  }
-
-  componentDidMount() {
-    this.swapiService.getAllPeople(``).then(([peopleList, peopleCount]) => {
-      this.setState({
-        peopleList: peopleList,
-        peopleCount: peopleCount,
-      });
-    });
-  }
-
-  onPageChanged = (item) => {
-    const pagesCount = Math.ceil(this.state.peopleCount / 10);
-    if (item > 0 && item <= pagesCount) {
-      this.swapiService.getAllPeople(`${item}`).then(([peopleList]) => {
-        this.setState({
-          peopleList: peopleList,
-          currentListPage: item,
-        });
-      });
-    }
-  };
-
-  renderItems(arr) {
+export default function ItemList({ list }) {
+  function renderItems(arr) {
     // eslint-disable-next-line react/prop-types
-    let { OnItemSelected } = this.props;
     return arr.map(({ id, name }) => (
-      <Link to={`/people/?page=${this.state.currentListPage}/${id}`}>
-        <li
-          className="list-group-item"
-          key={id}
-          onClick={() => OnItemSelected(id)}
-          onKeyDown={() => OnItemSelected(id)}
-        >
+      <li key={id}>
+        <Link to={`/person/${id}`} className="list-group-item">
           {name}
-        </li>
-      </Link>
+        </Link>
+      </li>
     ));
   }
 
-  render() {
-    const { peopleList, peopleCount, currentListPage } = this.state;
-
-    if (!peopleList) {
-      return <Spinner />;
-    }
-
-    const linkOfItems = '/people/?page=';
-    const items = this.renderItems(peopleList);
-
-    return (
-      <div>
-        <ul className="item-list list-group">{items}</ul>
-        <Pagination
-          data={{
-            totalCount: peopleCount,
-            onSelectNumber: this.onPageChanged,
-            currentPage: currentListPage,
-            link: linkOfItems,
-          }}
-        />
-      </div>
-    );
-  }
+  return (
+    <div className="container-item-list">
+      <ul className="item-list list-group">{renderItems(list)}</ul>
+    </div>
+  );
 }

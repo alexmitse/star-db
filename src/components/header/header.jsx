@@ -1,27 +1,35 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
+
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import PeoplePage from '../people-page';
+import PeoplePageList from '../people-page-list';
 import Nav from '../nav';
 import PlanetDitails from '../planet-details';
 import StarshipDetails from '../starship-details';
 import MainPage from '../main-page';
 
 import './header.css';
-import ItemList from '../item-list';
-import PersonDetails from '../person-details';
+import PeoplePageItem from '../people-page-item';
 
 const Header = () => {
   return (
     <Router>
-      <div className="header d-flex">
-        <Nav />
+      <div className="header">
+        <div className="header-nav">
+          <Nav />
+        </div>
         <Switch>
-          <Route path="/" exact component={MainPage} />
-          <Route path="/people" exact component={PeoplePage} />
-          <Route path="/planet" component={PlanetDitails} />
-          <Route path="/starship" component={StarshipDetails} />
-          <Route path="/people/?page=:id" component={ItemList} />
-          <Route path="/people/?page=:id/person:id" component={PersonDetails} />
+          <div className="header-main-page">
+            <Route path="/" exact component={MainPage} />
+          </div>
+        </Switch>
+        <Switch>
+          <div className="header-components">
+            <Route path="/people/:page" component={PeoplePageList} />
+            <Route path="/planet" component={PlanetDitails} />
+            <Route path="/starship" component={StarshipDetails} />
+            <Route path="/person/:id" component={PeoplePageItem} id />
+          </div>
         </Switch>
       </div>
     </Router>
