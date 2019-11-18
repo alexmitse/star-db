@@ -25,6 +25,16 @@ nav {
   background-color: rgba(241, 233, 233, 0.459);
 }
 
-.page-item:focus {
+.page-item-active {
+  padding: 7px;
+  margin: 5px;
   background-color: rgba(241, 233, 233, 0.459);
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: rgba(241, 233, 233, 0.459);
+  border-style: solid;
+  font-family: 'DIN Next W01 Regular', Helvetica, Arial, sans-serif;
+  color: rgba(241, 233, 233, 0.459);
+  text-decoration: none;
+  cursor: pointer;
 }

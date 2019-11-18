@@ -15,3 +15,9 @@ body {
   border-top-style: solid;
   border-bottom-style: solid;
 }
+
+@media (max-width: 1500px) {
+  body {
+    background-size: auto;
+  }
+}

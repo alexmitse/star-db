@@ -8,12 +8,12 @@ import { Link } from 'react-router-dom';
 
 import './pagination.css';
 
-function PaginationItem({ page, label = page, onClick }) {
+function PaginationItem({ page, label = page, onClick, currentPage }) {
   return (
     <Link
       to={`/people/${page}`}
       onClick={() => onClick(page)}
-      className="page-item"
+      className={+currentPage === +page ? 'page-item-active' : 'page-item'}
     >
       {label}
     </Link>
@@ -50,6 +50,7 @@ export default function Pagination({
             page={currentPage <= 1 ? 1 : currentPage - 1}
             onClick={setCurrentPage}
             label="Previous"
+            currentPage={currentPage}
           />
         </li>
         {pagesToDraw}
@@ -58,6 +59,7 @@ export default function Pagination({
             page={+currentPage >= pagesCount ? pagesCount : +currentPage + 1}
             onClick={setCurrentPage}
             label="Next"
+            currentPage={currentPage}
           />
         </li>
       </ul>
