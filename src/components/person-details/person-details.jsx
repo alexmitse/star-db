@@ -4,8 +4,8 @@ import React from 'react';
 import './person-details.css';
 
 export default function PersonDetails({ persona }) {
-  console.log(persona);
   const { id, name, gender, birthYear, eyeColor } = persona;
+  console.log(gender);
 
   return (
     <div className="person-details card">
