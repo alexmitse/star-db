@@ -1,9 +1,12 @@
 .item-list {
+  display: flex;
+  flex-direction: column;
+
   cursor: pointer;
 }
 
-.item-list .list-group-item:hover {
-  background-color: #444;
+.item-list .list-group {
+  height: 450px;
 }
 
 li {

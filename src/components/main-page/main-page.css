@@ -10,9 +10,15 @@
 }
 
 .btn-toggle-planet {
-  border: none;
-  border-radius: 5px;
-  background: rgb(142, 197, 147);
+  background-color: rgb(10, 10, 10);
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: rgba(241, 233, 233, 0.459);
+  border-style: solid;
   height: 50px;
   width: 150px;
+  font-family: 'DIN Next W01 Regular', Helvetica, Arial, sans-serif;
+  color: rgba(241, 233, 233, 0.459);
+  text-decoration: none;
+  cursor: pointer;
 }

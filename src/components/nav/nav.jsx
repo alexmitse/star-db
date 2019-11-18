@@ -13,21 +13,21 @@ const Nav = () => {
             src="https://media.graytvinc.com/images/810*455/Star+Wars49.jpg"
             alt="StarDB"
             width="200px"
-            height="100px"
+            height="110px"
           />
         </Link>
       </div>
       <div className="container-nav-links">
         <ul className="nav-links">
-          <Link to="/people/1">
-            <li>People</li>
-          </Link>
-          <Link to="/planet">
-            <li>Planets</li>
-          </Link>
-          <Link to="/starship">
-            <li>Starships</li>
-          </Link>
+          <li className="li-nav-links">
+            <Link to="/people/1">PEOPLE</Link>
+          </li>
+          <li className="li-nav-links">
+            <Link to="/planet">PLANETS</Link>
+          </li>
+          <li className="li-nav-links">
+            <Link to="/starship">STARSHIPS</Link>
+          </li>
         </ul>
       </div>
     </nav>

@@ -8,6 +8,7 @@ import './people-page-list.css';
 import SwapiService from '../../services/swapi-service';
 
 export default function PeolpePageList() {
+  console.log('hello');
   const swapiService = new SwapiService();
   const { page } = useParams();
   const [peopleCount, setPeopleCount] = useState(null);
@@ -36,15 +37,13 @@ export default function PeolpePageList() {
     return <Spinner />;
   }
   return (
-    <div className="row mb2">
-      <div className="col-md-6">
-        <ItemList list={peopleList} />
-        <Pagination
-          totalCount={peopleCount}
-          currentPage={page !== ':page' ? page : currentElement}
-          setCurrentPage={onChangeCurrentElement}
-        />
-      </div>
+    <div className="people-page">
+      <ItemList list={peopleList} />
+      <Pagination
+        totalCount={peopleCount}
+        currentPage={page !== ':page' ? page : currentElement}
+        setCurrentPage={onChangeCurrentElement}
+      />
     </div>
   );
 }

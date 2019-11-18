@@ -22,6 +22,8 @@ const Header = () => {
           <div className="header-main-page">
             <Route path="/" exact component={MainPage} />
           </div>
+        </Switch>
+        <Switch>
           <div className="header-components">
             <Route path="/people/:page" component={PeoplePageList} />
             <Route path="/planet" component={PlanetDitails} />
