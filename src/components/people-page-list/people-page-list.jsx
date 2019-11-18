@@ -36,15 +36,13 @@ export default function PeolpePageList() {
     return <Spinner />;
   }
   return (
-    <div className="row mb2">
-      <div className="col-md-6">
-        <ItemList list={peopleList} />
-        <Pagination
-          totalCount={peopleCount}
-          currentPage={page !== ':page' ? page : currentElement}
-          setCurrentPage={onChangeCurrentElement}
-        />
-      </div>
+    <div className="people-page">
+      <ItemList list={peopleList} />
+      <Pagination
+        totalCount={peopleCount}
+        currentPage={page !== ':page' ? page : currentElement}
+        setCurrentPage={onChangeCurrentElement}
+      />
     </div>
   );
 }

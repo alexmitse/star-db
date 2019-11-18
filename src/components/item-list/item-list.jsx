@@ -19,7 +19,7 @@ export default function ItemList({ list }) {
   }
 
   return (
-    <div>
+    <div className="container-item-list">
       <ul className="item-list list-group">{renderItems(list)}</ul>
     </div>
   );

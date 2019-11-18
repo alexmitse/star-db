@@ -1,6 +1,11 @@
 .random-planet {
   display: flex;
   padding: 1rem;
+  background-color: rgb(10, 10, 10);
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: rgba(241, 233, 233, 0.459);
+  border-style: solid;
 }
 
 .random-planet .planet-image {
@@ -11,7 +16,6 @@
 }
 
 .random-planet .list-group {
-  margin: 1rem 0 0 1rem;
 }
 
 .random-planet .list-group-item {
@@ -20,4 +24,24 @@
 
 .random-planet .list-group-item .term {
   margin-right: 0.5rem;
+}
+
+.planet-information {
+  display: flex;
+  flex-direction: column;
+  color: rgba(241, 233, 233, 0.459);
+}
+
+.list-group-flush {
+  padding: 0px;
+}
+
+.list-group-item {
+  display: flex;
+  font-size: 0.875rem;
+  text-align: center;
+  font-family: 'DIN Next W01 Regular', Helvetica, Arial, sans-serif;
+  margin: 0 auto;
+  color: rgba(241, 233, 233, 0.459);
+  text-transform: uppercase;
 }

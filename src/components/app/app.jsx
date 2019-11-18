@@ -5,8 +5,9 @@ import './app.css';
 
 const App = () => {
   return (
-    <div>
+    <div className="container">
       <Header />
+      <div className="footer" />
     </div>
   );
 };

@@ -1,9 +1,11 @@
 .item-list {
+  display: flex;
+  flex-direction: column;
   cursor: pointer;
 }
 
-.item-list .list-group-item:hover {
-  background-color: #444;
+ul {
+  padding-left: 0px;
 }
 
 li {
@@ -11,5 +13,19 @@ li {
 }
 
 .item-list {
-  background-color: rgb(129, 145, 129);
+  background-color: rgb(10, 10, 10);
+}
+
+.list-group-item {
+  padding: 10px;
+  background-color: rgb(10, 10, 10);
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: rgba(241, 233, 233, 0.459);
+  border-style: solid;
+  font-family: 'DIN Next W01 Regular', Helvetica, Arial, sans-serif;
+  color: rgba(241, 233, 233, 0.459);
+  text-decoration: none;
+  cursor: pointer;
+  text-transform: uppercase;
 }

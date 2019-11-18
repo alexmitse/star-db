@@ -15,13 +15,21 @@ const Header = () => {
   return (
     <Router>
       <div className="header">
-        <Nav />
+        <div className="header-nav">
+          <Nav />
+        </div>
         <Switch>
-          <Route path="/" exact component={MainPage} />
-          <Route path="/people/:page" component={PeoplePageList} />
-          <Route path="/planet" component={PlanetDitails} />
-          <Route path="/starship" component={StarshipDetails} />
-          <Route path="/person/:id" component={PeoplePageItem} id />
+          <div className="header-main-page">
+            <Route path="/" exact component={MainPage} />
+          </div>
+        </Switch>
+        <Switch>
+          <div className="header-components">
+            <Route path="/people/:page" component={PeoplePageList} />
+            <Route path="/planet" component={PlanetDitails} />
+            <Route path="/starship" component={StarshipDetails} />
+            <Route path="/person/:id" component={PeoplePageItem} id />
+          </div>
         </Switch>
       </div>
     </Router>
