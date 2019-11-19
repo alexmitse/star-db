@@ -7,7 +7,6 @@ const App = () => {
   return (
     <div className="container">
       <Header />
-      <div className="footer" />
     </div>
   );
 };
