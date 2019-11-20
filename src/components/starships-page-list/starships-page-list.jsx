@@ -4,10 +4,10 @@ import { useLocation } from 'react-router-dom';
 import ItemList from '../item-list';
 import Pagination from '../pagination';
 import Spinner from '../spinner';
-import './people-page-list.css';
+import './starships-page-list.css';
 import SwapiService from '../../services/swapi-service';
 
-export default function PeolpePageList() {
+export default function StarshipsPageList() {
   const swapiService = new SwapiService();
   function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -15,41 +15,43 @@ export default function PeolpePageList() {
   const query = useQuery();
   const page = query.get('page');
 
-  const [peopleCount, setPeopleCount] = useState(null);
-  const [peopleList, setPeopleList] = useState(null);
+  const [starshipsCount, setStarshipsCount] = useState(null);
+  const [starshipsList, setStarshipsList] = useState(null);
   const [currentElement, setCurrentElement] = useState(1);
 
   useEffect(() => {
     swapiService
-      .getAllPeople(
+      .getAllStarships(
         `${+page > 9 && +page < 1 && !(currentElement === +page) ? '' : page} `,
       )
-      .then(([peopleListFromServer, peopleCountFromServer]) => {
-        setPeopleCount(peopleCountFromServer);
-        setPeopleList(peopleListFromServer);
+      .then(([starshipsListFromServer, starshipsCountFromServer]) => {
+        setStarshipsCount(starshipsCountFromServer);
+        setStarshipsList(starshipsListFromServer);
       });
   }, []);
 
   const onChangeCurrentElement = (element) => {
     if (!(element > 9 || element < 1 || currentElement === element)) {
-      swapiService.getAllPeople(`${element}`).then(([peopleListFromServer]) => {
-        setPeopleList(peopleListFromServer);
-        setCurrentElement(element);
-      });
+      swapiService
+        .getAllStarships(`${element}`)
+        .then(([starshipsListFromServer]) => {
+          setStarshipsList(starshipsListFromServer);
+          setCurrentElement(element);
+        });
     }
   };
 
-  if (!peopleList) {
+  if (!starshipsList) {
     return <Spinner />;
   }
   return (
     <div className="people-page">
-      <ItemList list={peopleList} lable="people" />
+      <ItemList list={starshipsList} lable="starships" />
       <Pagination
-        totalCount={peopleCount}
+        totalCount={starshipsCount}
         currentPage={page !== ':page' ? page : currentElement}
         setCurrentPage={onChangeCurrentElement}
-        name="people"
+        name="starships"
       />
     </div>
   );

@@ -4,10 +4,10 @@ import { useLocation } from 'react-router-dom';
 import ItemList from '../item-list';
 import Pagination from '../pagination';
 import Spinner from '../spinner';
-import './people-page-list.css';
+import './species-page-list.css';
 import SwapiService from '../../services/swapi-service';
 
-export default function PeolpePageList() {
+export default function SpeciesPageList() {
   const swapiService = new SwapiService();
   function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -15,41 +15,43 @@ export default function PeolpePageList() {
   const query = useQuery();
   const page = query.get('page');
 
-  const [peopleCount, setPeopleCount] = useState(null);
-  const [peopleList, setPeopleList] = useState(null);
+  const [speciesCount, setSpeciesCount] = useState(null);
+  const [speciesList, setSpeciesList] = useState(null);
   const [currentElement, setCurrentElement] = useState(1);
 
   useEffect(() => {
     swapiService
-      .getAllPeople(
+      .getAllSpecies(
         `${+page > 9 && +page < 1 && !(currentElement === +page) ? '' : page} `,
       )
-      .then(([peopleListFromServer, peopleCountFromServer]) => {
-        setPeopleCount(peopleCountFromServer);
-        setPeopleList(peopleListFromServer);
+      .then(([speciesListFromServer, speciesCountFromServer]) => {
+        setSpeciesCount(speciesCountFromServer);
+        setSpeciesList(speciesListFromServer);
       });
   }, []);
 
   const onChangeCurrentElement = (element) => {
     if (!(element > 9 || element < 1 || currentElement === element)) {
-      swapiService.getAllPeople(`${element}`).then(([peopleListFromServer]) => {
-        setPeopleList(peopleListFromServer);
-        setCurrentElement(element);
-      });
+      swapiService
+        .getAllSpecies(`${element}`)
+        .then(([speciesListFromServer]) => {
+          setSpeciesList(speciesListFromServer);
+          setCurrentElement(element);
+        });
     }
   };
 
-  if (!peopleList) {
+  if (!speciesList) {
     return <Spinner />;
   }
   return (
     <div className="people-page">
-      <ItemList list={peopleList} lable="people" />
+      <ItemList list={speciesList} lable="species" />
       <Pagination
-        totalCount={peopleCount}
+        totalCount={speciesCount}
         currentPage={page !== ':page' ? page : currentElement}
         setCurrentPage={onChangeCurrentElement}
-        name="people"
+        name="species"
       />
     </div>
   );

@@ -27,9 +27,9 @@ export default class SwapiService {
     return this.transformPerson(person);
   }
 
-  async getAllPlanets() {
-    const res = await this.getResource(`/planets/`);
-    return res.results;
+  async getAllPlanets(number) {
+    const res = await this.getResource(`/planets/?page=${number}`);
+    return [res.results.map(this.transformPlanet), res.count];
   }
 
   async getPlanet(id) {
@@ -37,14 +37,44 @@ export default class SwapiService {
     return this.transformPlanet(planet);
   }
 
-  async getAllStarships() {
-    const res = await this.getResource(`/starship/`);
-    return res.results.map(this.transformStarship);
+  async getAllStarships(number) {
+    const res = await this.getResource(`/starships/?page=${number}`);
+    return [res.results.map(this.transformStarship), res.count];
   }
 
   async getStarship(id) {
     const starship = await this.getResource(`/starships/${id}`);
     return this.transformStarship(starship);
+  }
+
+  async getAllFilms(number) {
+    const res = await this.getResource(`/films/?page=${number}`);
+    return [res.results.map(this.transformFilm), res.count];
+  }
+
+  async getFilm(id) {
+    const film = await this.getResource(`/films/${id}`);
+    return this.transformFilm(film);
+  }
+
+  async getAllSpecies(number) {
+    const res = await this.getResource(`/species/?page=${number}`);
+    return [res.results.map(this.transformSpecies), res.count];
+  }
+
+  async getSpecies(id) {
+    const species = await this.getResource(`/species/${id}`);
+    return this.transformSpecies(species);
+  }
+
+  async getAllVehicles(number) {
+    const res = await this.getResource(`/vehicles/?page=${number}`);
+    return [res.results.map(this.transformSpecies), res.count];
+  }
+
+  async getVehicles(id) {
+    const vehicles = await this.getResource(`/vehicles/${id}`);
+    return this.transformVehicles(vehicles);
   }
 
   extractId = (item) => {
@@ -68,11 +98,11 @@ export default class SwapiService {
       name: starship.name,
       model: starship.model,
       manufacturer: starship.manufacturer,
-      costInCredits: starship.costInCredits,
+      costInCredits: starship.cost_in_credits,
       length: starship.length,
       crew: starship.crew,
       passengers: starship.passengers,
-      cargoCapacity: starship.cargoCapacity,
+      cargoCapacity: starship.cargo_capacity,
     };
   };
 
@@ -83,6 +113,36 @@ export default class SwapiService {
       gender: person.gender,
       birthYear: person.birth_year,
       eyeColor: person.eye_color,
+    };
+  };
+
+  transformFilm = (film) => {
+    return {
+      id: this.extractId(film),
+      name: film.title,
+      episodeId: film.episode_id,
+      openingCrawl: film.opening_crawl,
+      director: film.director,
+    };
+  };
+
+  transformSpecies = (species) => {
+    return {
+      id: this.extractId(species),
+      name: species.name,
+      classification: species.classification,
+      designation: species.designation,
+      averageHeight: species.average_height,
+    };
+  };
+
+  transformVehicles = (vehicles) => {
+    return {
+      id: this.extractId(vehicles),
+      name: vehicles.name,
+      model: vehicles.model,
+      manufacturer: vehicles.manufacturer,
+      costInCredits: vehicles.cost_in_credits,
     };
   };
 }

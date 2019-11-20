@@ -4,10 +4,10 @@ import { useLocation } from 'react-router-dom';
 import ItemList from '../item-list';
 import Pagination from '../pagination';
 import Spinner from '../spinner';
-import './people-page-list.css';
+import './films-page-list.css';
 import SwapiService from '../../services/swapi-service';
 
-export default function PeolpePageList() {
+export default function FilmsPageList() {
   const swapiService = new SwapiService();
   function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -15,41 +15,41 @@ export default function PeolpePageList() {
   const query = useQuery();
   const page = query.get('page');
 
-  const [peopleCount, setPeopleCount] = useState(null);
-  const [peopleList, setPeopleList] = useState(null);
+  const [filmsCount, setFilmsCount] = useState(null);
+  const [filmsList, setFilmsList] = useState(null);
   const [currentElement, setCurrentElement] = useState(1);
 
   useEffect(() => {
     swapiService
-      .getAllPeople(
+      .getAllFilms(
         `${+page > 9 && +page < 1 && !(currentElement === +page) ? '' : page} `,
       )
-      .then(([peopleListFromServer, peopleCountFromServer]) => {
-        setPeopleCount(peopleCountFromServer);
-        setPeopleList(peopleListFromServer);
+      .then(([filmsListFromServer, filmsCountFromServer]) => {
+        setFilmsCount(filmsCountFromServer);
+        setFilmsList(filmsListFromServer);
       });
   }, []);
 
   const onChangeCurrentElement = (element) => {
     if (!(element > 9 || element < 1 || currentElement === element)) {
-      swapiService.getAllPeople(`${element}`).then(([peopleListFromServer]) => {
-        setPeopleList(peopleListFromServer);
+      swapiService.getAllFilms(`${element}`).then(([filmsListFromServer]) => {
+        setFilmsList(filmsListFromServer);
         setCurrentElement(element);
       });
     }
   };
 
-  if (!peopleList) {
+  if (!filmsList) {
     return <Spinner />;
   }
   return (
     <div className="people-page">
-      <ItemList list={peopleList} lable="people" />
+      <ItemList list={filmsList} lable="films" />
       <Pagination
-        totalCount={peopleCount}
+        totalCount={filmsCount}
         currentPage={page !== ':page' ? page : currentElement}
         setCurrentPage={onChangeCurrentElement}
-        name="people"
+        name="films"
       />
     </div>
   );
