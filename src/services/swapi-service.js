@@ -17,8 +17,12 @@ export default class SwapiService {
     return resJson;
   }
 
-  async getAllPeople(number) {
-    const res = await this.getResource(`/people/?page=${number}`);
+  async getAllPeople(number, str) {
+    let search = '';
+    if (str !== null && str !== 'null' && str !== 'dont show') {
+      search = `&search=${str}`;
+    }
+    const res = await this.getResource(`/people/?page=${number}${search}`);
     return [res.results.map(this.transformPerson), res.count];
   }
 
@@ -27,8 +31,12 @@ export default class SwapiService {
     return this.transformPerson(person);
   }
 
-  async getAllPlanets(number) {
-    const res = await this.getResource(`/planets/?page=${number}`);
+  async getAllPlanets(number, str) {
+    let search = '';
+    if (str !== null && str !== 'null' && str !== 'dont show') {
+      search = `&search=${str}`;
+    }
+    const res = await this.getResource(`/planets/?page=${number}${search}`);
     return [res.results.map(this.transformPlanet), res.count];
   }
 
@@ -37,8 +45,12 @@ export default class SwapiService {
     return this.transformPlanet(planet);
   }
 
-  async getAllStarships(number) {
-    const res = await this.getResource(`/starships/?page=${number}`);
+  async getAllStarships(number, str) {
+    let search = '';
+    if (str !== null && str !== 'null' && str !== 'dont show') {
+      search = `&search=${str}`;
+    }
+    const res = await this.getResource(`/starships/?page=${number}${search}`);
     return [res.results.map(this.transformStarship), res.count];
   }
 
@@ -47,8 +59,12 @@ export default class SwapiService {
     return this.transformStarship(starship);
   }
 
-  async getAllFilms(number) {
-    const res = await this.getResource(`/films/?page=${number}`);
+  async getAllFilms(number, str) {
+    let search = '';
+    if (str !== null && str !== 'null' && str !== 'dont show') {
+      search = `&search=${str}`;
+    }
+    const res = await this.getResource(`/films/?page=${number}${search}`);
     return [res.results.map(this.transformFilm), res.count];
   }
 
@@ -57,8 +73,12 @@ export default class SwapiService {
     return this.transformFilm(film);
   }
 
-  async getAllSpecies(number) {
-    const res = await this.getResource(`/species/?page=${number}`);
+  async getAllSpecies(number, str) {
+    let search = '';
+    if (str !== null && str !== 'null' && str !== 'dont show') {
+      search = `&search=${str}`;
+    }
+    const res = await this.getResource(`/species/?page=${number}${search}`);
     return [res.results.map(this.transformSpecies), res.count];
   }
 
@@ -67,14 +87,38 @@ export default class SwapiService {
     return this.transformSpecies(species);
   }
 
-  async getAllVehicles(number) {
-    const res = await this.getResource(`/vehicles/?page=${number}`);
+  async getAllVehicles(number, str) {
+    let search = '';
+    if (str !== null && str !== 'null' && str !== 'dont show') {
+      search = `&search=${str}`;
+    }
+    const res = await this.getResource(`/vehicles/?page=${number}${search}`);
     return [res.results.map(this.transformSpecies), res.count];
   }
 
   async getVehicles(id) {
     const vehicles = await this.getResource(`/vehicles/${id}`);
     return this.transformVehicles(vehicles);
+  }
+
+  async getElement(category, str) {
+    const res = await this.getResource(`/${category}/?search=${str}`);
+    switch (category) {
+      case 'people':
+        return [res.results.map(this.transformElement), res.count];
+      case 'starships':
+        return [res.results.map(this.transformStarship), res.count];
+      case 'planets':
+        return [res.results.map(this.transformPlanet), res.count];
+      case 'films':
+        return [res.results.map(this.transformFilm), res.count];
+      case 'species':
+        return [res.results.map(this.transformSpecies), res.count];
+      case 'vehicles':
+        return [res.results.map(this.transformVehicles), res.count];
+      default:
+        throw new Error(`Could not fetch url, received ${res.status}`);
+    }
   }
 
   extractId = (item) => {
@@ -143,6 +187,16 @@ export default class SwapiService {
       model: vehicles.model,
       manufacturer: vehicles.manufacturer,
       costInCredits: vehicles.cost_in_credits,
+    };
+  };
+
+  transformElement = (element) => {
+    return {
+      id: this.extractId(element),
+      name: element.name,
+      gender: element.gender,
+      birthYear: element.birth_year,
+      eyeColor: element.eye_color,
     };
   };
 }

@@ -6,6 +6,7 @@ import Pagination from '../pagination';
 import Spinner from '../spinner';
 import './films-page-list.css';
 import SwapiService from '../../services/swapi-service';
+import Search from '../search';
 
 export default function FilmsPageList() {
   const swapiService = new SwapiService();
@@ -18,11 +19,13 @@ export default function FilmsPageList() {
   const [filmsCount, setFilmsCount] = useState(null);
   const [filmsList, setFilmsList] = useState(null);
   const [currentElement, setCurrentElement] = useState(1);
+  const [display, setDisplay] = useState(null);
 
   useEffect(() => {
     swapiService
       .getAllFilms(
         `${+page > 9 && +page < 1 && !(currentElement === +page) ? '' : page} `,
+        null,
       )
       .then(([filmsListFromServer, filmsCountFromServer]) => {
         setFilmsCount(filmsCountFromServer);
@@ -32,10 +35,12 @@ export default function FilmsPageList() {
 
   const onChangeCurrentElement = (element) => {
     if (!(element > 9 || element < 1 || currentElement === element)) {
-      swapiService.getAllFilms(`${element}`).then(([filmsListFromServer]) => {
-        setFilmsList(filmsListFromServer);
-        setCurrentElement(element);
-      });
+      swapiService
+        .getAllFilms(`${element}`, `${display !== null ? display : null}`)
+        .then(([filmsListFromServer]) => {
+          setFilmsList(filmsListFromServer);
+          setCurrentElement(element);
+        });
     }
   };
 
@@ -43,7 +48,13 @@ export default function FilmsPageList() {
     return <Spinner />;
   }
   return (
-    <div className="people-page">
+    <div className="films-page">
+      <Search
+        category="films"
+        setList={setFilmsList}
+        setCount={setFilmsCount}
+        setDisplay={setDisplay}
+      />
       <ItemList list={filmsList} lable="films" />
       <Pagination
         totalCount={filmsCount}
