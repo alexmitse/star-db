@@ -6,7 +6,6 @@ import Pagination from '../pagination';
 import Spinner from '../spinner';
 import './species-page-list.css';
 import SwapiService from '../../services/swapi-service';
-import Search from '../search';
 
 export default function SpeciesPageList() {
   const swapiService = new SwapiService();
@@ -19,7 +18,6 @@ export default function SpeciesPageList() {
   const [speciesCount, setSpeciesCount] = useState(null);
   const [speciesList, setSpeciesList] = useState(null);
   const [currentElement, setCurrentElement] = useState(1);
-  const [display, setDisplay] = useState(null);
 
   useEffect(() => {
     swapiService
@@ -36,7 +34,7 @@ export default function SpeciesPageList() {
   const onChangeCurrentElement = (element) => {
     if (!(element > 9 || element < 1 || currentElement === element)) {
       swapiService
-        .getAllSpecies(`${element}`, `${display !== null ? display : null}`)
+        .getAllSpecies(`${element}`, null)
         .then(([speciesListFromServer]) => {
           setSpeciesList(speciesListFromServer);
           setCurrentElement(element);
@@ -49,12 +47,6 @@ export default function SpeciesPageList() {
   }
   return (
     <div className="species-page">
-      <Search
-        category="species"
-        setList={setSpeciesList}
-        setCount={setSpeciesCount}
-        setDisplay={setDisplay}
-      />
       <ItemList list={speciesList} lable="species" />
       <Pagination
         totalCount={speciesCount}

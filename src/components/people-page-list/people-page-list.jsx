@@ -7,7 +7,6 @@ import Pagination from '../pagination';
 import Spinner from '../spinner';
 import './people-page-list.css';
 import SwapiService from '../../services/swapi-service';
-import Search from '../search';
 
 export default function PeolpePageList() {
   const swapiService = new SwapiService();
@@ -20,7 +19,6 @@ export default function PeolpePageList() {
   const [peopleCount, setPeopleCount] = useState(null);
   const [peopleList, setPeopleList] = useState(null);
   const [currentElement, setCurrentElement] = useState(1);
-  const [display, setDisplay] = useState(null);
 
   useEffect(() => {
     swapiService
@@ -37,7 +35,7 @@ export default function PeolpePageList() {
   const onChangeCurrentElement = (element) => {
     if (!(element > 9 || element < 1 || currentElement === element)) {
       swapiService
-        .getAllPeople(`${element}`, `${display !== null ? display : null}`)
+        .getAllPeople(`${element}`, null)
         .then(([peopleListFromServer]) => {
           setPeopleList(peopleListFromServer);
           setCurrentElement(element);
@@ -51,18 +49,10 @@ export default function PeolpePageList() {
 
   return (
     <div className="people-page">
-      <Search
-        category="people"
-        setList={setPeopleList}
-        setCount={setPeopleCount}
-        setDisplay={setDisplay}
-      />
       <ItemList list={peopleList} lable="people" />
       <Pagination
         totalCount={peopleCount}
-        currentPage={
-          page === ':page' ? currentElement : display === 'dont show' ? 1 : page
-        }
+        currentPage={page === ':page' ? currentElement : page}
         setCurrentPage={onChangeCurrentElement}
         name="people"
       />

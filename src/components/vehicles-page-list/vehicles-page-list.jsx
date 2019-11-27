@@ -6,7 +6,6 @@ import Pagination from '../pagination';
 import Spinner from '../spinner';
 import './vehicles-page-list.css';
 import SwapiService from '../../services/swapi-service';
-import Search from '../search';
 
 export default function VehiclesPageList() {
   const swapiService = new SwapiService();
@@ -19,7 +18,6 @@ export default function VehiclesPageList() {
   const [vehiclesCount, setVehiclesCount] = useState(null);
   const [vehiclesList, setVehiclesList] = useState(null);
   const [currentElement, setCurrentElement] = useState(1);
-  const [display, setDisplay] = useState(null);
 
   useEffect(() => {
     swapiService
@@ -36,7 +34,7 @@ export default function VehiclesPageList() {
   const onChangeCurrentElement = (element) => {
     if (!(element > 9 || element < 1 || currentElement === element)) {
       swapiService
-        .getAllVehicles(`${element}`, `${display !== null ? display : null}`)
+        .getAllVehicles(`${element}`, null)
         .then(([vehiclesListFromServer]) => {
           setVehiclesList(vehiclesListFromServer);
           setCurrentElement(element);
@@ -49,12 +47,6 @@ export default function VehiclesPageList() {
   }
   return (
     <div className="vehicles-page">
-      <Search
-        category="vehicles"
-        setList={setVehiclesList}
-        setCount={setVehiclesCount}
-        setDisplay={setDisplay}
-      />
       <ItemList list={vehiclesList} lable="vehicles" />
       <Pagination
         totalCount={vehiclesCount}

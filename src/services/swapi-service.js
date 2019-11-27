@@ -101,24 +101,47 @@ export default class SwapiService {
     return this.transformVehicles(vehicles);
   }
 
-  async getElement(category, str) {
-    const res = await this.getResource(`/${category}/?search=${str}`);
-    switch (category) {
-      case 'people':
-        return [res.results.map(this.transformElement), res.count];
-      case 'starships':
-        return [res.results.map(this.transformStarship), res.count];
-      case 'planets':
-        return [res.results.map(this.transformPlanet), res.count];
-      case 'films':
-        return [res.results.map(this.transformFilm), res.count];
-      case 'species':
-        return [res.results.map(this.transformSpecies), res.count];
-      case 'vehicles':
-        return [res.results.map(this.transformVehicles), res.count];
-      default:
-        throw new Error(`Could not fetch url, received ${res.status}`);
-    }
+  async getElement(str) {
+    let number = 0;
+    let resPeople = {};
+    let resPlanets = {};
+    let resStarships = {};
+    let resVehicles = {};
+    let resSpecies = {};
+    let resFilms = {};
+
+    do {
+      number++;
+      resPeople = await this.getResource(
+        `/people?page=${number}&search=${str}`,
+      );
+      resPlanets = await this.getResource(
+        `/planets?page=${number}&search=${str}`,
+      );
+      resStarships = await this.getResource(
+        `/starships?page=${number}&search=${str}`,
+      );
+      resVehicles = await this.getResource(
+        `/vehicles?page=${number}&search=${str}`,
+      );
+      resSpecies = await this.getResource(
+        `/species?page=${number}&search=${str}`,
+      );
+      resFilms = await this.getResource(`/films?page=${number}&search=${str}`);
+    } while (resPeople.next);
+    // сделать while для некст пэйдж
+
+    return [
+      [
+        ...resPeople.results.map(this.transformPerson),
+        // ...resPeopleNext.results.map(this.transformPerson),
+        ...resPlanets.results.map(this.transformPlanet),
+        ...resStarships.results.map(this.transformStarship),
+        ...resVehicles.results.map(this.transformVehicles),
+        ...resSpecies.results.map(this.transformSpecies),
+        ...resFilms.results.map(this.transformFilm),
+      ],
+    ];
   }
 
   extractId = (item) => {
@@ -129,6 +152,7 @@ export default class SwapiService {
   transformPlanet = (planet) => {
     return {
       id: this.extractId(planet),
+      lable: 'planets',
       name: planet.name,
       population: planet.population,
       rotationPeriod: planet.rotation_period,
@@ -139,6 +163,7 @@ export default class SwapiService {
   transformStarship = (starship) => {
     return {
       id: this.extractId(starship),
+      lable: 'starships',
       name: starship.name,
       model: starship.model,
       manufacturer: starship.manufacturer,
@@ -153,6 +178,7 @@ export default class SwapiService {
   transformPerson = (person) => {
     return {
       id: this.extractId(person),
+      lable: 'people',
       name: person.name,
       gender: person.gender,
       birthYear: person.birth_year,
@@ -163,6 +189,7 @@ export default class SwapiService {
   transformFilm = (film) => {
     return {
       id: this.extractId(film),
+      lable: 'films',
       name: film.title,
       episodeId: film.episode_id,
       openingCrawl: film.opening_crawl,
@@ -173,6 +200,7 @@ export default class SwapiService {
   transformSpecies = (species) => {
     return {
       id: this.extractId(species),
+      lable: 'species',
       name: species.name,
       classification: species.classification,
       designation: species.designation,
@@ -183,20 +211,11 @@ export default class SwapiService {
   transformVehicles = (vehicles) => {
     return {
       id: this.extractId(vehicles),
+      lable: 'vehicles',
       name: vehicles.name,
       model: vehicles.model,
       manufacturer: vehicles.manufacturer,
       costInCredits: vehicles.cost_in_credits,
-    };
-  };
-
-  transformElement = (element) => {
-    return {
-      id: this.extractId(element),
-      name: element.name,
-      gender: element.gender,
-      birthYear: element.birth_year,
-      eyeColor: element.eye_color,
     };
   };
 }

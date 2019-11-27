@@ -6,7 +6,6 @@ import Pagination from '../pagination';
 import Spinner from '../spinner';
 import './starships-page-list.css';
 import SwapiService from '../../services/swapi-service';
-import Search from '../search';
 
 export default function StarshipsPageList() {
   const swapiService = new SwapiService();
@@ -19,7 +18,6 @@ export default function StarshipsPageList() {
   const [starshipsCount, setStarshipsCount] = useState(null);
   const [starshipsList, setStarshipsList] = useState(null);
   const [currentElement, setCurrentElement] = useState(1);
-  const [display, setDisplay] = useState(null);
 
   useEffect(() => {
     swapiService
@@ -36,7 +34,7 @@ export default function StarshipsPageList() {
   const onChangeCurrentElement = (element) => {
     if (!(element > 9 || element < 1 || currentElement === element)) {
       swapiService
-        .getAllStarships(`${element}`, `${display !== null ? display : null}`)
+        .getAllStarships(`${element}`, null)
         .then(([starshipsListFromServer]) => {
           setStarshipsList(starshipsListFromServer);
           setCurrentElement(element);
@@ -49,12 +47,6 @@ export default function StarshipsPageList() {
   }
   return (
     <div className="starships-page">
-      <Search
-        category="starships"
-        setList={setStarshipsList}
-        setCount={setStarshipsCount}
-        setDisplay={setDisplay}
-      />
       <ItemList list={starshipsList} lable="starships" />
       <Pagination
         totalCount={starshipsCount}

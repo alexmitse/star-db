@@ -18,12 +18,15 @@ import FilmsPageItem from '../films-page-item';
 import SpeciesPageItem from '../species-page-item';
 import VehiclesPageItem from '../vehicles-page-item';
 import './header.css';
+import Search from '../search/search';
+import SearchItemList from '../search-item-list/search-item-list';
 
 const Header = () => {
   return (
     <Router>
       <div className="header">
         <div className="header-nav">
+          <Search />
           <Nav />
         </div>
         <Switch>
@@ -33,6 +36,7 @@ const Header = () => {
         </Switch>
         <Switch>
           <div className="header-components">
+            <Route path="/search=:str" exact component={SearchItemList} />
             <Route path="/people" exact component={PeoplePageList} />
             <Route path="/planets" exact component={PlanetsPageList} />
             <Route path="/starships" exact component={StarshipsPageList} />

@@ -6,7 +6,6 @@ import Pagination from '../pagination';
 import Spinner from '../spinner';
 import './planets-page-list.css';
 import SwapiService from '../../services/swapi-service';
-import Search from '../search';
 
 export default function PlanetsPageList() {
   const swapiService = new SwapiService();
@@ -18,7 +17,6 @@ export default function PlanetsPageList() {
   const [planetsCount, setPlanetsCount] = useState(null);
   const [planetsList, setPlanetsList] = useState(null);
   const [currentElement, setCurrentElement] = useState(1);
-  const [display, setDisplay] = useState(null);
 
   useEffect(() => {
     swapiService
@@ -35,7 +33,7 @@ export default function PlanetsPageList() {
   const onChangeCurrentElement = (element) => {
     if (!(element > 7 || element < 1 || currentElement === element)) {
       swapiService
-        .getAllPlanets(`${element}`, `${display !== null ? display : null}`)
+        .getAllPlanets(`${element}`, null)
         .then(([planetsListFromServer]) => {
           setPlanetsList(planetsListFromServer);
           setCurrentElement(element);
@@ -48,12 +46,6 @@ export default function PlanetsPageList() {
   }
   return (
     <div className="planets-page">
-      <Search
-        category="planets"
-        setList={setPlanetsList}
-        setCount={setPlanetsCount}
-        setDisplay={setDisplay}
-      />
       <ItemList list={planetsList} lable="planets" />
       <Pagination
         totalCount={planetsCount}

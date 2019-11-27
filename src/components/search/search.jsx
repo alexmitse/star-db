@@ -1,36 +1,39 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './search.css';
 import SwapiService from '../../services/swapi-service';
+import SearchList from '../search-list';
 
-export default function Search({ category, setList, setCount, setDisplay }) {
+export default function Search() {
   const swapiService = new SwapiService();
-  const [term, setTerm] = useState('');
+  const [term, setTerm] = useState(null);
+  const [list, setList] = useState(null);
+  const [display, setDisplay] = useState(true);
 
-  function onTermChange(e) {
+  const onTermChange = (e) => {
     setTerm(e.target.value);
-    setDisplay(e.target.value);
-    if (e.target.value === '') {
-      setDisplay('dont show');
-    }
-    swapiService
-      .getElement(`${category}`, e.target.value)
-      .then(([listFromServer, countFromServer]) => {
-        setCount(countFromServer);
+    if (e.target.value.length > 1)
+      swapiService.getElement(e.target.value).then(([listFromServer]) => {
         setList(listFromServer);
       });
-  }
+  };
+
+  useEffect(() => {
+    setTerm(null);
+  }, [display]);
 
   return (
-    <div className="nav-search-container">
-      <input
-        type="text"
-        className="search-input"
-        placeholder="type to search"
-        value={term}
-        onChange={onTermChange}
-      />
+    <div className="container-search">
+      <input type="text" value={term} onChange={onTermChange} />
+      {list && display && (
+        <SearchList
+          list={list}
+          display={display}
+          propTerm={term}
+          setDisplay={setDisplay}
+        />
+      )}
     </div>
   );
 }
