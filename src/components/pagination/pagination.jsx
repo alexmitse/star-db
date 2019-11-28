@@ -25,8 +25,9 @@ export default function Pagination({
   currentPage,
   setCurrentPage,
   name,
+  size,
 }) {
-  const [pageSize] = useState(10);
+  const [pageSize] = useState(size);
   const pagesCount = Math.ceil(totalCount / pageSize);
   const pagesToDraw = new Array(pagesCount)
     .fill()

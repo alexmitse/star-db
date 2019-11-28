@@ -1,8 +1,10 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable consistent-return */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable-next-line no-else-return */
-import React, { useState } from 'react';
+import React from 'react';
 import './search-list.css';
 import { Link } from 'react-router-dom';
 

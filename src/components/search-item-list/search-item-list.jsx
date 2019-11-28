@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './search-item-list.css';
@@ -13,7 +14,7 @@ export default function SearchItemList() {
   const [list, setList] = useState(null);
   const [count, setCount] = useState(null);
   const [currentElement, setCurrentElement] = useState(1);
-  const [display, setDisplay] = useState(false);
+  const [display] = useState(false);
   let searchItem;
 
   const onTermChange = (e) => {

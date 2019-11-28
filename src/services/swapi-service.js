@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 /* eslint-disable class-methods-use-this */
 export default class SwapiService {
   apiBase = 'https://swapi.co/api';
@@ -17,12 +18,20 @@ export default class SwapiService {
     return resJson;
   }
 
-  async getAllPeople(number, str) {
-    let search = '';
-    if (str !== null && str !== 'null' && str !== 'dont show') {
-      search = `&search=${str}`;
+  async getAllPeople(number, filter) {
+    const res = await this.getResource(`/people/?page=${number}`);
+    if (filter) {
+      const promises = [];
+      for (let i = 1; i <= Math.ceil(res.count / 10); i += 1)
+        promises.push(this.getResource(`/people/?page=${i}`));
+
+      const resFilter = await Promise.all(promises);
+      return [
+        resFilter.map((item) => {
+          return item.results.map(this.transformPerson);
+        }),
+      ];
     }
-    const res = await this.getResource(`/people/?page=${number}${search}`);
     return [res.results.map(this.transformPerson), res.count];
   }
 
@@ -111,7 +120,7 @@ export default class SwapiService {
     let resFilms = {};
 
     do {
-      number++;
+      number += 1;
       resPeople = await this.getResource(
         `/people?page=${number}&search=${str}`,
       );
@@ -149,6 +158,11 @@ export default class SwapiService {
     return item.url.match(idRegExp)[1];
   };
 
+  extractItem = (item) => {
+    const idRegExp = /\/([0-9]*)\/$/;
+    return item.match(idRegExp)[1];
+  };
+
   transformPlanet = (planet) => {
     return {
       id: this.extractId(planet),
@@ -183,6 +197,11 @@ export default class SwapiService {
       gender: person.gender,
       birthYear: person.birth_year,
       eyeColor: person.eye_color,
+      homeworld: this.extractItem(person.homeworld), // planets/1
+      films: person.films.map(this.extractItem),
+      species: person.species.map(this.extractItem),
+      vehicles: person.vehicles.map(this.extractItem),
+      starships: person.starships.map(this.extractItem),
     };
   };
 
