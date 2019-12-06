@@ -10,7 +10,6 @@ import MainPage from '../main-page';
 import FilmsPageList from '../films-page-list';
 import SpeciesPageList from '../species-page-list';
 import VehiclesPageList from '../vehicles-page-list';
-
 import PeoplePageItem from '../people-page-item';
 import PlanetsPageItem from '../planets-page-item';
 import StarshipsPageItem from '../starships-page-item';
@@ -29,13 +28,13 @@ const Header = () => {
           <Search />
           <Nav />
         </div>
-        <Switch>
-          <div className="header-main-page">
+        <div className="header-main-page">
+          <Switch>
             <Route path="/" exact component={MainPage} />
-          </div>
-        </Switch>
-        <Switch>
-          <div className="header-components">
+          </Switch>
+        </div>
+        <div className="header-components">
+          <Switch>
             <Route path="/search=:str" exact component={SearchItemList} />
             <Route path="/people" exact component={PeoplePageList} />
             <Route path="/planets" exact component={PlanetsPageList} />
@@ -49,8 +48,8 @@ const Header = () => {
             <Route path="/films/id=:id" component={FilmsPageItem} />
             <Route path="/species/id=:id" component={SpeciesPageItem} />
             <Route path="/vehicles/id=:id" component={VehiclesPageItem} />
-          </div>
-        </Switch>
+          </Switch>
+        </div>
       </div>
     </Router>
   );

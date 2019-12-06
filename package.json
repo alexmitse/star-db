@@ -5,6 +5,7 @@
   "dependencies": {
     "airbnb": "0.0.2",
     "prop-types": "^15.7.2",
+    "query-string": "^6.9.0",
     "react": "^16.9.0",
     "react-app": "^1.1.2",
     "react-dom": "^16.9.0",

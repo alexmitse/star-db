@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useState, useEffect } from 'react';
 import './search.css';
@@ -7,7 +6,7 @@ import SearchList from '../search-list';
 
 export default function Search() {
   const swapiService = new SwapiService();
-  const [term, setTerm] = useState(null);
+  const [term, setTerm] = useState(undefined);
   const [list, setList] = useState(null);
   const [display, setDisplay] = useState(true);
 
@@ -20,7 +19,7 @@ export default function Search() {
   };
 
   useEffect(() => {
-    setTerm(null);
+    setTerm(undefined);
   }, [display]);
 
   return (

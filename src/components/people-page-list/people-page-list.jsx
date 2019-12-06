@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -7,7 +6,7 @@ import Pagination from '../pagination';
 import Spinner from '../spinner';
 import './people-page-list.css';
 import SwapiService from '../../services/swapi-service';
-import Filter from '../filter/filter';
+import QueryWork from '../query-work/query-work';
 
 export default function PeolpePageList() {
   const swapiService = new SwapiService();
@@ -16,67 +15,48 @@ export default function PeolpePageList() {
   }
   const query = useQuery();
   const page = query.get('page');
-  console.log(page);
-
   const [peopleCount, setPeopleCount] = useState(null);
   const [peopleList, setPeopleList] = useState(null);
   const [currentElement, setCurrentElement] = useState(1);
-  const [filter, setFilter] = useState(false);
-  const [sizeList, setSizeList] = useState(10);
+  const [filter] = useState(false);
+  const [sizeList] = useState(10);
+
+  const data = [
+    {
+      films: {
+        type: 'checkbox',
+        dataList: [`films_1`, `films_2`, `films_3`, `films_4`],
+      },
+    },
+    { gender: { type: 'list', dataList: ['male', 'female'] } },
+    { rotationPeriod: { type: 'number', dataList: ['0', '5'] } },
+  ];
 
   useEffect(() => {
     swapiService
       .getAllPeople(
-        `${+page > 9 && +page < 1 && !(currentElement === +page) ? '' : page} `,
+        `${
+          +page > 9 || // change 9 on variable
+          (+page < 1 && !(currentElement === +page)) ||
+          page === null
+            ? 1
+            : page
+        } `,
         filter,
       )
       .then(([peopleListFromServer, peopleCountFromServer]) => {
-        if (filter) {
-          setPeopleList(
-            peopleListFromServer[page - 1].filter(
-              (item) => item.gender === filter,
-            ),
-          );
-          setPeopleCount(
-            peopleListFromServer.reduce((sum, current) => {
-              return (
-                sum + current.filter((item) => item.gender === filter).length
-              );
-            }, 0),
-          );
-          setSizeList(
-            peopleListFromServer.filter((item) => item.gender === filter)
-              .length,
-          );
-        } else {
-          setPeopleList(peopleListFromServer);
-          setPeopleCount(peopleCountFromServer);
-        }
+        setPeopleList(peopleListFromServer);
+        setPeopleCount(peopleCountFromServer);
       });
-  }, [filter]);
+  }, []);
 
   const onChangeCurrentElement = (element) => {
     if (!(element > 9 || element < 1 || currentElement === element)) {
       swapiService
         .getAllPeople(`${element}`, filter)
         .then(([peopleListFromServer]) => {
-          if (filter) {
-            console.log(
-              element,
-              // peopleListFromServer[page - 1].filter(
-              //   (item) => item.gender === filter,
-              // ),
-            );
-            setPeopleList(
-              peopleListFromServer[element - 1].filter(
-                (item) => item.gender === filter,
-              ),
-            );
-            setCurrentElement(element);
-          } else {
-            setPeopleList(peopleListFromServer);
-            setCurrentElement(element);
-          }
+          setPeopleList(peopleListFromServer);
+          setCurrentElement(element);
         });
     }
   };
@@ -98,7 +78,7 @@ export default function PeolpePageList() {
         />
       </div>
       <div className="people-page-filter">
-        <Filter setFilter={setFilter} />
+        <QueryWork data={data} />
       </div>
     </div>
   );

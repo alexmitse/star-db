@@ -19,19 +19,9 @@ export default class SwapiService {
   }
 
   async getAllPeople(number, filter) {
-    const res = await this.getResource(`/people/?page=${number}`);
-    if (filter) {
-      const promises = [];
-      for (let i = 1; i <= Math.ceil(res.count / 10); i += 1)
-        promises.push(this.getResource(`/people/?page=${i}`));
-
-      const resFilter = await Promise.all(promises);
-      return [
-        resFilter.map((item) => {
-          return item.results.map(this.transformPerson);
-        }),
-      ];
-    }
+    let res = {};
+    if (filter) res = await this.getResource(`${filter}`);
+    else res = await this.getResource(`/people/?page=${number}`);
     return [res.results.map(this.transformPerson), res.count];
   }
 
