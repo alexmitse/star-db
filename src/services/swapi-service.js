@@ -30,12 +30,10 @@ export default class SwapiService {
     return this.transformPerson(person);
   }
 
-  async getAllPlanets(number, str) {
-    let search = '';
-    if (str !== null && str !== 'null' && str !== 'dont show') {
-      search = `&search=${str}`;
-    }
-    const res = await this.getResource(`/planets/?page=${number}${search}`);
+  async getAllPlanets(number, filter) {
+    let res = {};
+    if (filter) res = await this.getResource(`${filter}`);
+    else res = await this.getResource(`/planets/?page=${number}`);
     return [res.results.map(this.transformPlanet), res.count];
   }
 
@@ -44,12 +42,10 @@ export default class SwapiService {
     return this.transformPlanet(planet);
   }
 
-  async getAllStarships(number, str) {
-    let search = '';
-    if (str !== null && str !== 'null' && str !== 'dont show') {
-      search = `&search=${str}`;
-    }
-    const res = await this.getResource(`/starships/?page=${number}${search}`);
+  async getAllStarships(number, filter) {
+    let res = {};
+    if (filter) res = await this.getResource(`${filter}`);
+    else res = await this.getResource(`/starships/?page=${number}`);
     return [res.results.map(this.transformStarship), res.count];
   }
 
@@ -58,12 +54,10 @@ export default class SwapiService {
     return this.transformStarship(starship);
   }
 
-  async getAllFilms(number, str) {
-    let search = '';
-    if (str !== null && str !== 'null' && str !== 'dont show') {
-      search = `&search=${str}`;
-    }
-    const res = await this.getResource(`/films/?page=${number}${search}`);
+  async getAllFilms(number, filter) {
+    let res = {};
+    if (filter) res = await this.getResource(`${filter}`);
+    else res = await this.getResource(`/films/?page=${number}`);
     return [res.results.map(this.transformFilm), res.count];
   }
 
@@ -72,12 +66,10 @@ export default class SwapiService {
     return this.transformFilm(film);
   }
 
-  async getAllSpecies(number, str) {
-    let search = '';
-    if (str !== null && str !== 'null' && str !== 'dont show') {
-      search = `&search=${str}`;
-    }
-    const res = await this.getResource(`/species/?page=${number}${search}`);
+  async getAllSpecies(number, filter) {
+    let res = {};
+    if (filter) res = await this.getResource(`${filter}`);
+    else res = await this.getResource(`/species/?page=${number}`);
     return [res.results.map(this.transformSpecies), res.count];
   }
 
@@ -86,12 +78,10 @@ export default class SwapiService {
     return this.transformSpecies(species);
   }
 
-  async getAllVehicles(number, str) {
-    let search = '';
-    if (str !== null && str !== 'null' && str !== 'dont show') {
-      search = `&search=${str}`;
-    }
-    const res = await this.getResource(`/vehicles/?page=${number}${search}`);
+  async getAllVehicles(number, filter) {
+    let res = {};
+    if (filter) res = await this.getResource(`${filter}`);
+    else res = await this.getResource(`/vehicles/?page=${number}`);
     return [res.results.map(this.transformSpecies), res.count];
   }
 
@@ -187,7 +177,7 @@ export default class SwapiService {
       gender: person.gender,
       birthYear: person.birth_year,
       eyeColor: person.eye_color,
-      homeworld: this.extractItem(person.homeworld), // planets/1
+      homeworld: this.extractItem(person.homeworld),
       films: person.films.map(this.extractItem),
       species: person.species.map(this.extractItem),
       vehicles: person.vehicles.map(this.extractItem),

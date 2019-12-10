@@ -28,7 +28,7 @@ export default function PeolpePageList() {
         dataList: [`films_1`, `films_2`, `films_3`, `films_4`],
       },
     },
-    { gender: { type: 'list', dataList: ['male', 'female'] } },
+    { gender: { type: 'list', dataList: ['male', 'female', 'a'] } },
     { rotationPeriod: { type: 'number', dataList: ['0', '5'] } },
   ];
 

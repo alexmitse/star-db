@@ -18,12 +18,20 @@ export default function StarshipsPageList() {
   const [starshipsCount, setStarshipsCount] = useState(null);
   const [starshipsList, setStarshipsList] = useState(null);
   const [currentElement, setCurrentElement] = useState(1);
+  const [filter] = useState(false);
+  const [sizeList] = useState(10);
 
   useEffect(() => {
     swapiService
       .getAllStarships(
-        `${+page > 9 && +page < 1 && !(currentElement === +page) ? '' : page} `,
-        null,
+        `${
+          +page > 9 || // change 9 on variable
+          (+page < 1 && !(currentElement === +page)) ||
+          page === null
+            ? 1
+            : page
+        } `,
+        filter,
       )
       .then(([starshipsListFromServer, starshipsCountFromServer]) => {
         setStarshipsCount(starshipsCountFromServer);
@@ -53,6 +61,7 @@ export default function StarshipsPageList() {
         currentPage={page !== ':page' ? page : currentElement}
         setCurrentPage={onChangeCurrentElement}
         name="starships"
+        size={sizeList}
       />
     </div>
   );

@@ -18,12 +18,20 @@ export default function SpeciesPageList() {
   const [speciesCount, setSpeciesCount] = useState(null);
   const [speciesList, setSpeciesList] = useState(null);
   const [currentElement, setCurrentElement] = useState(1);
+  const [filter] = useState(false);
+  const [sizeList] = useState(10);
 
   useEffect(() => {
     swapiService
       .getAllSpecies(
-        `${+page > 9 && +page < 1 && !(currentElement === +page) ? '' : page} `,
-        null,
+        `${
+          +page > 9 || // change 9 on variable
+          (+page < 1 && !(currentElement === +page)) ||
+          page === null
+            ? 1
+            : page
+        } `,
+        filter,
       )
       .then(([speciesListFromServer, speciesCountFromServer]) => {
         setSpeciesCount(speciesCountFromServer);
@@ -53,6 +61,7 @@ export default function SpeciesPageList() {
         currentPage={page !== ':page' ? page : currentElement}
         setCurrentPage={onChangeCurrentElement}
         name="species"
+        size={sizeList}
       />
     </div>
   );

@@ -18,12 +18,20 @@ export default function VehiclesPageList() {
   const [vehiclesCount, setVehiclesCount] = useState(null);
   const [vehiclesList, setVehiclesList] = useState(null);
   const [currentElement, setCurrentElement] = useState(1);
+  const [filter] = useState(false);
+  const [sizeList] = useState(10);
 
   useEffect(() => {
     swapiService
       .getAllVehicles(
-        `${+page > 9 && +page < 1 && !(currentElement === +page) ? '' : page} `,
-        null,
+        `${
+          +page > 9 || // change 9 on variable
+          (+page < 1 && !(currentElement === +page)) ||
+          page === null
+            ? 1
+            : page
+        } `,
+        filter,
       )
       .then(([vehiclesListFromServer, vehiclesCountFromServer]) => {
         setVehiclesCount(vehiclesCountFromServer);
@@ -53,6 +61,7 @@ export default function VehiclesPageList() {
         currentPage={page !== ':page' ? page : currentElement}
         setCurrentPage={onChangeCurrentElement}
         name="vehicles"
+        size={sizeList}
       />
     </div>
   );

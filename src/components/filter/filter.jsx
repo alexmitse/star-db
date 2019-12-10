@@ -1,13 +1,15 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-else-return */
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import './filter.css';
 
-export default function Filter({ data, onSetObj }) {
+export default function Filter({ data, onSetObj, query }) {
   const [objFromServer, setObjFromServer] = useState({});
   const newObj = {};
+  function mySort(arr, char) {
+    const copyArr = arr;
+    const count = copyArr.indexOf(char);
+    [copyArr[0], copyArr[count]] = [copyArr[count], copyArr[0]];
+    return copyArr;
+  }
   useEffect(() => {
     data.forEach((item) => {
       const objNextProperty = item[Object.keys(item)];
@@ -39,6 +41,72 @@ export default function Filter({ data, onSetObj }) {
           break;
       }
     });
+    if (query) {
+      Object.keys(query).forEach((elem) => {
+        data.forEach((item) => {
+          const objNextProperty = item[Object.keys(item)];
+          const [from, to] = objNextProperty.dataList;
+          switch (objNextProperty.type) {
+            case 'checkbox':
+              objNextProperty.dataList.map((el) => {
+                if (Object.keys(newObj[objNextProperty.type])[0] === elem) {
+                  query[elem].forEach((i) => {
+                    newObj[objNextProperty.type][[...Object.keys(item)]][
+                      i
+                    ] = true;
+                  });
+                }
+                return newObj[objNextProperty.type][[...Object.keys(item)]][el];
+              });
+              break;
+            case 'list':
+              if (Object.keys(newObj[objNextProperty.type])[0] === elem) {
+                newObj[objNextProperty.type][[...Object.keys(item)]] = mySort(
+                  objNextProperty.dataList,
+                  query[elem],
+                );
+              }
+
+              break;
+            case 'number':
+              if (
+                elem.includes('from') &&
+                +from < +query[elem] &&
+                +query[elem] < +to
+              ) {
+                newObj[objNextProperty.type][[...Object.keys(item)]].from =
+                  query[elem];
+              }
+              if (
+                elem.includes('from') &&
+                !(+from < +query[elem] && +query[elem] < +to)
+              ) {
+                newObj[objNextProperty.type][
+                  [...Object.keys(item)]
+                ].from = from;
+              }
+              if (
+                elem.includes('to') &&
+                +from < +query[elem] &&
+                +query[elem] < +to
+              ) {
+                newObj[objNextProperty.type][[...Object.keys(item)]].to =
+                  query[elem];
+              }
+              if (
+                elem.includes('to') &&
+                !(+from < +query[elem] && +query[elem] < +to)
+              ) {
+                newObj[objNextProperty.type][[...Object.keys(item)]].to = to;
+              }
+              break;
+
+            default:
+              break;
+          }
+        });
+      });
+    }
     setObjFromServer(newObj);
   }, []);
 
@@ -106,36 +174,43 @@ export default function Filter({ data, onSetObj }) {
       switch (item) {
         case 'checkbox':
           return (
-            <label key="checkbox" style={{ color: 'white' }}>
+            <label key="checkbox" style={{ color: 'white' }} htmlFor="checkbox">
               {Object.keys(datas[item]).map((el) => el)}
               {Object.keys(datas[item]).map((el) =>
                 Object.entries(datas[item][el]).map((keyValue) => {
                   if (keyValue[1])
                     return (
-                      <label key={keyValue[0]} style={{ color: 'white' }}>
+                      <label
+                        key={keyValue[0]}
+                        style={{ color: 'white' }}
+                        htmlFor={keyValue[0]}
+                      >
                         <input
                           type={item}
                           value={keyValue[0]}
-                          checked
+                          defaultChecked
                           id={el}
                         />
                         {keyValue[0]}
                       </label>
                     );
-                  else
-                    return (
-                      <label key={keyValue[0]} style={{ color: 'white' }}>
-                        <input type={item} value={keyValue[0]} id={el} />
-                        {keyValue[0]}
-                      </label>
-                    );
+                  return (
+                    <label
+                      key={keyValue[0]}
+                      style={{ color: 'white' }}
+                      htmlFor={keyValue[0]}
+                    >
+                      <input type={item} value={keyValue[0]} id={el} />
+                      {keyValue[0]}
+                    </label>
+                  );
                 }),
               )}
             </label>
           );
         case 'list':
           return (
-            <label key="list" style={{ color: 'white' }}>
+            <label key="list" style={{ color: 'white' }} htmlFor="list">
               {Object.keys(datas[item]).map((el) => el)}
               <select>
                 {Object.keys(datas[item]).map((el) =>
@@ -155,7 +230,7 @@ export default function Filter({ data, onSetObj }) {
           );
         case 'number':
           return (
-            <label key="number" style={{ color: 'white' }}>
+            <label key="number" style={{ color: 'white' }} htmlFor="number">
               {Object.keys(datas[item]).map((el) => el)}
               {Object.keys(datas[item]).map((el) => {
                 const minmax = [];
@@ -164,9 +239,14 @@ export default function Filter({ data, onSetObj }) {
                 );
                 return Object.entries(datas[item][el]).map((keyValue) => {
                   return (
-                    <label key={keyValue[0]} style={{ color: 'white' }}>
+                    <label
+                      key={keyValue[0]}
+                      style={{ color: 'white' }}
+                      htmlFor={keyValue[0]}
+                    >
                       {keyValue[0]}
                       <input
+                        defaultValue={keyValue[1]}
                         name={keyValue[0]}
                         type={item}
                         min={minmax[0]}
