@@ -50,23 +50,36 @@ export default function Filter({ data, onSetObj, query }) {
             case 'checkbox':
               objNextProperty.dataList.map((el) => {
                 if (Object.keys(newObj[objNextProperty.type])[0] === elem) {
-                  query[elem].forEach((i) => {
-                    newObj[objNextProperty.type][[...Object.keys(item)]][
-                      i
-                    ] = true;
-                  });
+                  if (Array.isArray(query[elem])) {
+                    query[elem].forEach((qElem) => {
+                      if (el === qElem) {
+                        newObj[objNextProperty.type][[...Object.keys(item)]][
+                          qElem
+                        ] = true;
+                      }
+                    });
+                  }
+                  if (!Array.isArray(query[elem])) {
+                    if (el === query[elem]) {
+                      newObj[objNextProperty.type][[...Object.keys(item)]][
+                        query[elem]
+                      ] = true;
+                    }
+                  }
                 }
                 return newObj[objNextProperty.type][[...Object.keys(item)]][el];
               });
+
               break;
             case 'list':
               if (Object.keys(newObj[objNextProperty.type])[0] === elem) {
-                newObj[objNextProperty.type][[...Object.keys(item)]] = mySort(
-                  objNextProperty.dataList,
-                  query[elem],
-                );
+                if (objNextProperty.dataList.includes(query[elem])) {
+                  newObj[objNextProperty.type][[...Object.keys(item)]] = mySort(
+                    objNextProperty.dataList,
+                    query[elem],
+                  );
+                }
               }
-
               break;
             case 'number':
               if (

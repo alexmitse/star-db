@@ -1,3 +1,4 @@
+/* eslint-disable prefer-template */
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import './query-work.css';
@@ -41,12 +42,13 @@ export default function QueryWork({ data }) {
           break;
       }
       queryStr.join('&');
-      const newurl = `${window.location.protocol}
-        '//'
-        ${window.location.host}
-        ${window.location.pathname}
-        '?'
-        ${queryStr.join('&')}`;
+      const newurl =
+        window.location.protocol +
+        '//' +
+        window.location.host +
+        window.location.pathname +
+        '?' +
+        queryStr.join('&');
 
       window.history.pushState({ path: newurl }, '', newurl);
     });
