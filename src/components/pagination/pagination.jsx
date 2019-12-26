@@ -8,12 +8,12 @@ import { Link } from 'react-router-dom';
 
 import './pagination.css';
 
-function PaginationItem({ page, label = page, onClick }) {
+function PaginationItem({ page, label = page, onClick, currentPage, names }) {
   return (
     <Link
-      to={`/people/${page}`}
+      to={`/${names}?page=${page}`}
       onClick={() => onClick(page)}
-      className="page-item"
+      className={+currentPage === +page ? 'page-item-active' : 'page-item'}
     >
       {label}
     </Link>
@@ -24,8 +24,10 @@ export default function Pagination({
   totalCount,
   currentPage,
   setCurrentPage,
+  name,
+  size,
 }) {
-  const [pageSize] = useState(10);
+  const [pageSize] = useState(size);
   const pagesCount = Math.ceil(totalCount / pageSize);
   const pagesToDraw = new Array(pagesCount)
     .fill()
@@ -37,6 +39,7 @@ export default function Pagination({
             page={page}
             currentPage={currentPage}
             onClick={setCurrentPage}
+            names={name}
           />
         </li>
       );
@@ -45,19 +48,26 @@ export default function Pagination({
   return (
     <nav aria-label="Page navigation">
       <ul className="pagination">
-        <li className="page-item-select">
+        <li className={+currentPage === 1 ? 'page-item-select' : 'item'}>
           <PaginationItem
             page={currentPage <= 1 ? 1 : currentPage - 1}
             onClick={setCurrentPage}
             label="Previous"
+            currentPage={currentPage}
+            names={name}
           />
         </li>
         {pagesToDraw}
-        <li className="page-item-select">
+        <li
+          className={+currentPage >= pagesCount ? 'page-item-select' : 'item'}
+        >
           <PaginationItem
             page={+currentPage >= pagesCount ? pagesCount : +currentPage + 1}
             onClick={setCurrentPage}
             label="Next"
+            currentPage={currentPage}
+            names={name}
+            pagesCount={pagesCount}
           />
         </li>
       </ul>

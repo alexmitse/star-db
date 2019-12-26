@@ -3,15 +3,9 @@ body {
   background-repeat: space;
   background-size: 100%;
 }
-.footer {
-  position: absolute;
-  bottom: 0;
-  height: 100px;
-  width: 100%;
-  margin-left: -9px;
-  background-color: rgb(10, 10, 10);
-  border-width: 1px;
-  border-color: rgba(241, 233, 233, 0.459);
-  border-top-style: solid;
-  border-bottom-style: solid;
+
+@media (max-width: 1500px) {
+  body {
+    background-size: auto;
+  }
 }

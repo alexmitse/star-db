@@ -1,0 +1,36 @@
+/* .card {
+  background-color: rgb(10, 10, 10);
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: rgba(241, 233, 233, 0.459);
+  border-style: solid;
+  font-family: 'DIN Next W01 Regular', Helvetica, Arial, sans-serif;
+  color: rgba(241, 233, 233, 0.459);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.card-body {
+  padding-left: 20px;
+}
+
+.person-details {
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.person-details .person-image {
+  width: 30%;
+  height: 30%;
+  border-radius: 10px;
+}
+
+.person-details .list-group-item {
+  padding: 0.25rem;
+}
+
+.person-details .list-group-item .term {
+  margin-right: 0.5rem;
+} */
