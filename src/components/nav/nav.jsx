@@ -20,13 +20,22 @@ const Nav = () => {
       <div className="container-nav-links">
         <ul className="nav-links">
           <li className="li-nav-links">
-            <Link to="/people/1">PEOPLE</Link>
+            <Link to="/people?page=1">PEOPLE</Link>
           </li>
           <li className="li-nav-links">
-            <Link to="/planet">PLANETS</Link>
+            <Link to="/planets?page=1">PLANETS</Link>
           </li>
           <li className="li-nav-links">
-            <Link to="/starship">STARSHIPS</Link>
+            <Link to="/starships?page=1">STARSHIPS</Link>
+          </li>
+          <li className="li-nav-links">
+            <Link to="/films?page=1">FILMS</Link>
+          </li>
+          <li className="li-nav-links">
+            <Link to="/species?page=1">SPECIES</Link>
+          </li>
+          <li className="li-nav-links">
+            <Link to="/vehicles?page=1">VEHICLES</Link>
           </li>
         </ul>
       </div>

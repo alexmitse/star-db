@@ -1,3 +1,8 @@
+.people-page-list {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-gap: 1em;
+}
 .people-page {
   width: 730px;
   height: 534px;
