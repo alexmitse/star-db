@@ -1,12 +1,13 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable prefer-template */
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import queryString from 'query-string';
 import './query-work.css';
 import Filter from '../filter/filter';
 
 export default function QueryWork({ data }) {
   let queryStr = [];
-  const queryString = require('query-string');
   const parsed = queryString.parse(useLocation().search);
   function onSetObj(object) {
     Object.keys(object).forEach((item) => {

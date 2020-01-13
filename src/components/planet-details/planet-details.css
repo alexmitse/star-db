@@ -1,0 +1,54 @@
+.container-datails {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  overflow: auto;
+  height: 600px;
+}
+.planet-image {
+  border-radius: 4px;
+  width: 50%;
+}
+.name {
+  padding: 10px;
+}
+
+.list-group {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+}
+
+.list-group-item {
+  padding-top: 0px;
+  display: flex;
+}
+
+.term {
+  display: flex;
+  justify-content: flex-start;
+}
+.term-item {
+  display: flex;
+  margin-left: 10px;
+  justify-content: space-around;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(37, 37, 37);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  border-radius: 10px;
+}

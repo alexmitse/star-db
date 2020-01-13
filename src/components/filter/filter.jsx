@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import './filter.css';
 
@@ -27,7 +28,6 @@ export default function Filter({ data, onSetObj, query }) {
           newObj[objNextProperty.type][[...Object.keys(item)]] = [
             ...objNextProperty.dataList,
           ];
-
           break;
         case 'number':
           newObj[objNextProperty.type] = {};
@@ -36,7 +36,6 @@ export default function Filter({ data, onSetObj, query }) {
             to: objNextProperty.dataList[1],
           };
           break;
-
         default:
           break;
       }
@@ -69,7 +68,6 @@ export default function Filter({ data, onSetObj, query }) {
                 }
                 return newObj[objNextProperty.type][[...Object.keys(item)]][el];
               });
-
               break;
             case 'list':
               if (Object.keys(newObj[objNextProperty.type])[0] === elem) {
@@ -113,7 +111,6 @@ export default function Filter({ data, onSetObj, query }) {
                 newObj[objNextProperty.type][[...Object.keys(item)]].to = to;
               }
               break;
-
             default:
               break;
           }
@@ -187,7 +184,11 @@ export default function Filter({ data, onSetObj, query }) {
       switch (item) {
         case 'checkbox':
           return (
-            <label key="checkbox" style={{ color: 'white' }} htmlFor="checkbox">
+            <label
+              key="checkbox"
+              htmlFor="checkbox"
+              className="wraper-filter-items"
+            >
               {Object.keys(datas[item]).map((el) => el)}
               {Object.keys(datas[item]).map((el) =>
                 Object.entries(datas[item][el]).map((keyValue) => {
@@ -195,14 +196,15 @@ export default function Filter({ data, onSetObj, query }) {
                     return (
                       <label
                         key={keyValue[0]}
-                        style={{ color: 'white' }}
                         htmlFor={keyValue[0]}
+                        className="filter-item"
                       >
                         <input
                           type={item}
                           value={keyValue[0]}
                           defaultChecked
                           id={el}
+                          className="input-checkbox"
                         />
                         {keyValue[0]}
                       </label>
@@ -210,10 +212,15 @@ export default function Filter({ data, onSetObj, query }) {
                   return (
                     <label
                       key={keyValue[0]}
-                      style={{ color: 'white' }}
                       htmlFor={keyValue[0]}
+                      className="filter-item"
                     >
-                      <input type={item} value={keyValue[0]} id={el} />
+                      <input
+                        type={item}
+                        value={keyValue[0]}
+                        id={el}
+                        className="input-checkbox"
+                      />
                       {keyValue[0]}
                     </label>
                   );
@@ -223,9 +230,9 @@ export default function Filter({ data, onSetObj, query }) {
           );
         case 'list':
           return (
-            <label key="list" style={{ color: 'white' }} htmlFor="list">
+            <label key="list" htmlFor="list" className="wraper-filter-items">
               {Object.keys(datas[item]).map((el) => el)}
-              <select>
+              <select className="select-item">
                 {Object.keys(datas[item]).map((el) =>
                   Object.values(datas[item][el]).map((keyValue) => {
                     return (
@@ -234,6 +241,7 @@ export default function Filter({ data, onSetObj, query }) {
                         label={keyValue}
                         value={keyValue}
                         id={el}
+                        className="input-item"
                       />
                     );
                   }),
@@ -243,7 +251,11 @@ export default function Filter({ data, onSetObj, query }) {
           );
         case 'number':
           return (
-            <label key="number" style={{ color: 'white' }} htmlFor="number">
+            <label
+              key="number"
+              htmlFor="number"
+              className="wraper-filter-items"
+            >
               {Object.keys(datas[item]).map((el) => el)}
               {Object.keys(datas[item]).map((el) => {
                 const minmax = [];
@@ -254,8 +266,8 @@ export default function Filter({ data, onSetObj, query }) {
                   return (
                     <label
                       key={keyValue[0]}
-                      style={{ color: 'white' }}
                       htmlFor={keyValue[0]}
+                      className="filter-item"
                     >
                       {keyValue[0]}
                       <input
@@ -265,6 +277,7 @@ export default function Filter({ data, onSetObj, query }) {
                         min={minmax[0]}
                         max={minmax[1]}
                         id={el}
+                        className="input-item"
                       />
                     </label>
                   );
@@ -272,7 +285,6 @@ export default function Filter({ data, onSetObj, query }) {
               })}
             </label>
           );
-
         default:
           return new Error('u should be loch');
       }
@@ -280,7 +292,9 @@ export default function Filter({ data, onSetObj, query }) {
   };
   return (
     <div className="container-filter">
-      <form onChange={handlerForm}>{renderFilter(objFromServer)}</form>
+      <form onChange={handlerForm} className="item-list form-filter">
+        {renderFilter(objFromServer)}
+      </form>
     </div>
   );
 }

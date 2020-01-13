@@ -1,13 +1,7 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable class-methods-use-this */
 export default class SwapiService {
-  apiBase = 'https://swapi.co/api';
-
-  async getRequest(url) {
-    const res = await fetch(`${url}`);
-    const resJson = await res.json();
-    return resJson;
-  }
+  apiBase = 'https://server-star-db.herokuapp.com';
 
   async getResource(url) {
     const res = await fetch(`${this.apiBase}${url}`);
@@ -22,199 +16,203 @@ export default class SwapiService {
     let res = {};
     if (filter) res = await this.getResource(`${filter}`);
     else res = await this.getResource(`/people/?page=${number}`);
-    return [res.results.map(this.transformPerson), res.count];
+    return [res.rows.map(this.transformPerson), res.count];
   }
 
   async getPerson(id) {
     const person = await this.getResource(`/people/${id}/`);
-    return this.transformPerson(person);
+    return this.transformPerson(person[0]);
   }
 
   async getAllPlanets(number, filter) {
     let res = {};
     if (filter) res = await this.getResource(`${filter}`);
     else res = await this.getResource(`/planets/?page=${number}`);
-    return [res.results.map(this.transformPlanet), res.count];
+    return [res.rows.map(this.transformPlanet), res.count];
   }
 
   async getPlanet(id) {
     const planet = await this.getResource(`/planets/${id}/`);
-    return this.transformPlanet(planet);
+    return this.transformPlanet(planet[0]);
   }
 
   async getAllStarships(number, filter) {
     let res = {};
     if (filter) res = await this.getResource(`${filter}`);
     else res = await this.getResource(`/starships/?page=${number}`);
-    return [res.results.map(this.transformStarship), res.count];
+    return [res.rows.map(this.transformStarship), res.count];
   }
 
   async getStarship(id) {
     const starship = await this.getResource(`/starships/${id}`);
-    return this.transformStarship(starship);
+    return this.transformStarship(starship[0]);
   }
 
   async getAllFilms(number, filter) {
     let res = {};
     if (filter) res = await this.getResource(`${filter}`);
     else res = await this.getResource(`/films/?page=${number}`);
-    return [res.results.map(this.transformFilm), res.count];
+    return [res.rows.map(this.transformFilm), res.count];
   }
 
   async getFilm(id) {
     const film = await this.getResource(`/films/${id}`);
-    return this.transformFilm(film);
+    return this.transformFilm(film[0]);
   }
 
   async getAllSpecies(number, filter) {
     let res = {};
     if (filter) res = await this.getResource(`${filter}`);
     else res = await this.getResource(`/species/?page=${number}`);
-    return [res.results.map(this.transformSpecies), res.count];
+    return [res.rows.map(this.transformSpecies), res.count];
   }
 
   async getSpecies(id) {
     const species = await this.getResource(`/species/${id}`);
-    return this.transformSpecies(species);
+    return this.transformSpecies(species[0]);
   }
 
   async getAllVehicles(number, filter) {
     let res = {};
     if (filter) res = await this.getResource(`${filter}`);
     else res = await this.getResource(`/vehicles/?page=${number}`);
-    return [res.results.map(this.transformSpecies), res.count];
+    return [res.rows.map(this.transformSpecies), res.count];
   }
 
   async getVehicles(id) {
     const vehicles = await this.getResource(`/vehicles/${id}`);
-    return this.transformVehicles(vehicles);
+    return this.transformVehicles(vehicles[0]);
   }
 
-  async getElement(str) {
-    let number = 0;
-    let resPeople = {};
-    let resPlanets = {};
-    let resStarships = {};
-    let resVehicles = {};
-    let resSpecies = {};
-    let resFilms = {};
+  async getElement(str, page) {
+    const res = await this.getResource(`/search?page=${page}&search=${str}`);
+    let result = null;
+    let count = 0;
+    let peopleCount = 0;
+    let planetsCount = 0;
+    let filmsCount = 0;
+    let speciesCount = 0;
+    let vehiclesCount = 0;
+    let starshipsCount = 0;
 
-    do {
-      number += 1;
-      resPeople = await this.getResource(
-        `/people?page=${number}&search=${str}`,
-      );
-      resPlanets = await this.getResource(
-        `/planets?page=${number}&search=${str}`,
-      );
-      resStarships = await this.getResource(
-        `/starships?page=${number}&search=${str}`,
-      );
-      resVehicles = await this.getResource(
-        `/vehicles?page=${number}&search=${str}`,
-      );
-      resSpecies = await this.getResource(
-        `/species?page=${number}&search=${str}`,
-      );
-      resFilms = await this.getResource(`/films?page=${number}&search=${str}`);
-    } while (resPeople.next);
-    // сделать while для некст пэйдж
-
-    return [
-      [
-        ...resPeople.results.map(this.transformPerson),
-        // ...resPeopleNext.results.map(this.transformPerson),
-        ...resPlanets.results.map(this.transformPlanet),
-        ...resStarships.results.map(this.transformStarship),
-        ...resVehicles.results.map(this.transformVehicles),
-        ...resSpecies.results.map(this.transformSpecies),
-        ...resFilms.results.map(this.transformFilm),
-      ],
-    ];
+    if (str !== '') {
+      result = res.map(this.transformSearch);
+      res.forEach((item) => {
+        switch (item.tablename) {
+          case 'people':
+            peopleCount = +item.count;
+            break;
+          case 'films':
+            filmsCount = +item.count;
+            break;
+          case 'planets':
+            planetsCount = +item.count;
+            break;
+          case 'species':
+            speciesCount = +item.count;
+            break;
+          case 'vehicles':
+            vehiclesCount = +item.count;
+            break;
+          case 'starships':
+            starshipsCount = +item.count;
+            break;
+          default:
+            break;
+        }
+      });
+    }
+    count =
+      peopleCount +
+      filmsCount +
+      planetsCount +
+      speciesCount +
+      vehiclesCount +
+      starshipsCount;
+    return [result, count];
   }
 
-  extractId = (item) => {
-    const idRegExp = /\/([0-9]*)\/$/;
-    return item.url.match(idRegExp)[1];
-  };
-
-  extractItem = (item) => {
-    const idRegExp = /\/([0-9]*)\/$/;
-    return item.match(idRegExp)[1];
+  transformSearch = (search) => {
+    return {
+      lable: search.tablename,
+      id: search.id,
+      name: search.name,
+    };
   };
 
   transformPlanet = (planet) => {
     return {
-      id: this.extractId(planet),
+      id: planet.id,
       lable: 'planets',
       name: planet.name,
+      climate: planet.climate,
       population: planet.population,
-      rotationPeriod: planet.rotation_period,
-      diameter: planet.diameter,
+      people: planet.people,
+      films: planet.films,
     };
   };
 
   transformStarship = (starship) => {
     return {
-      id: this.extractId(starship),
+      id: starship.id,
       lable: 'starships',
       name: starship.name,
       model: starship.model,
-      manufacturer: starship.manufacturer,
-      costInCredits: starship.cost_in_credits,
       length: starship.length,
-      crew: starship.crew,
-      passengers: starship.passengers,
-      cargoCapacity: starship.cargo_capacity,
+      people: starship.people,
+      films: starship.films,
     };
   };
 
   transformPerson = (person) => {
     return {
-      id: this.extractId(person),
+      id: person.id,
       lable: 'people',
       name: person.name,
       gender: person.gender,
-      birthYear: person.birth_year,
-      eyeColor: person.eye_color,
-      homeworld: this.extractItem(person.homeworld),
-      films: person.films.map(this.extractItem),
-      species: person.species.map(this.extractItem),
-      vehicles: person.vehicles.map(this.extractItem),
-      starships: person.starships.map(this.extractItem),
+      homeworld: person.planet,
+      films: person.films,
+      species: person.species,
+      vehicles: person.vehicles,
+      starships: person.starships,
     };
   };
 
   transformFilm = (film) => {
     return {
-      id: this.extractId(film),
+      id: film.id,
       lable: 'films',
       name: film.title,
-      episodeId: film.episode_id,
-      openingCrawl: film.opening_crawl,
       director: film.director,
+      people: film.people,
+      species: film.species,
+      starships: film.starships,
+      vehicles: film.vehicles,
+      planets: film.planets,
     };
   };
 
   transformSpecies = (species) => {
     return {
-      id: this.extractId(species),
+      id: species.id,
       lable: 'species',
       name: species.name,
       classification: species.classification,
-      designation: species.designation,
-      averageHeight: species.average_height,
+      language: species.language,
+      films: species.films,
+      people: species.people,
     };
   };
 
   transformVehicles = (vehicles) => {
     return {
-      id: this.extractId(vehicles),
+      id: vehicles.id,
       lable: 'vehicles',
       name: vehicles.name,
       model: vehicles.model,
-      manufacturer: vehicles.manufacturer,
-      costInCredits: vehicles.cost_in_credits,
+      length: vehicles.length,
+      films: vehicles.films,
+      people: vehicles.people,
     };
   };
 }

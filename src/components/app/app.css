@@ -9,3 +9,14 @@ body {
     background-size: auto;
   }
 }
+
+.header {
+  width: 80%;
+  margin: auto;
+}
+
+.header-nav {
+  display: flex;
+
+  width: 100%;
+}

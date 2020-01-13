@@ -3,9 +3,6 @@
   padding: 1rem;
   background-color: rgb(10, 10, 10);
   border-radius: 10px;
-  border-width: 1px;
-  border-color: rgba(241, 233, 233, 0.459);
-  border-style: solid;
 }
 
 .random-planet .planet-image {
@@ -20,6 +17,10 @@
 
 .random-planet .list-group-item {
   padding: 0.25rem;
+}
+
+.list-group-item {
+  border: none;
 }
 
 .random-planet .list-group-item .term {

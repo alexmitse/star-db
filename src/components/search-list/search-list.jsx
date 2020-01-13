@@ -5,7 +5,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable-next-line no-else-return */
 import React from 'react';
-import './search-list.css';
+import './search-list.scss';
 import { Link } from 'react-router-dom';
 
 export default function SearchList({
@@ -17,11 +17,12 @@ export default function SearchList({
 }) {
   let count = 0;
   function renderItems(arr) {
-    let arr1 = arr;
+    let arr1 = arr.filter((item) => item !== null);
     if (currentPage > 1) {
       arr1 = [...arr.slice(currentPage * 10 - 10, -1), ...arr.slice(-1)];
     }
-    return arr1.map(({ id, lable, name }) => {
+
+    return arr1.map(({ id, name, lable }) => {
       count += 1; // bad
       if (count > 10) return;
       return (
@@ -34,13 +35,17 @@ export default function SearchList({
     });
   }
   return (
-    <div>
-      <ul className="item-list list-group">{renderItems(list)}</ul>
-      {list && display && (
-        <li onClick={() => setDisplay(false)}>
-          <Link to={`/search=${propTerm}`}>ALL RESULTS</Link>
-        </li>
-      )}
+    <div className="search-list">
+      <ul className="item-list search-group">
+        {renderItems(list)}
+        {list && display && (
+          <li onClick={() => setDisplay(false)}>
+            <Link to={`/search?page=1&search=${propTerm}`} className="result">
+              ALL RESULTS
+            </Link>
+          </li>
+        )}
+      </ul>
     </div>
   );
 }

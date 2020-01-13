@@ -1,0 +1,60 @@
+$backgroundColor: #343434;
+$focusColor: #585656;
+$textColor: #fff;
+$radious: 4px;
+
+@mixin base-properties {
+  display: flex;
+  border: 0;
+  border-radius: $radious;
+}
+@mixin base-input {
+  background-color: transparent;
+  visibility: visible;
+  color: $textColor;
+}
+@mixin base-focus {
+  outline: none;
+  background-color: $focusColor;
+}
+
+.container-search {
+  @include base-properties;
+  flex-wrap: wrap;
+  background-color: $backgroundColor;
+  box-shadow: none;
+  position: relative;
+  width: 200px;
+  opacity: 0.7;
+  height: 30px;
+  transition: opacity 350ms;
+
+  .search-input {
+    @include base-properties;
+    @include base-input;
+    font-size: medium;
+    font-weight: 700;
+    font-family: 'DIN Next W01 Regular', Helvetica, Arial, sans-serif;
+    width: 80%;
+    height: 100%;
+  }
+  .search-submit {
+    @include base-properties;
+    @include base-input;
+    padding: initial;
+    background-repeat: no-repeat;
+    background-image: url(https://static-mh.content.disney.io/starwars/assets/navigation/icon_search-957a123fdb62.svg);
+    background-size: 60% 60%;
+    background-position: center;
+    width: 20%;
+    height: 100%;
+    cursor: pointer;
+  }
+  .search-input:focus {
+    @include base-focus;
+    height: 95%;
+  }
+  .search-submit:focus {
+    @include base-focus;
+  }
+}

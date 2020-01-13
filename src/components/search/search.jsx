@@ -1,36 +1,59 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useState, useEffect } from 'react';
-import './search.css';
+import { useLocation } from 'react-router-dom';
+import queryString from 'query-string';
+import './search.scss';
 import SwapiService from '../../services/swapi-service';
 import SearchList from '../search-list';
 
 export default function Search() {
   const swapiService = new SwapiService();
-  const [term, setTerm] = useState(undefined);
   const [list, setList] = useState(null);
   const [display, setDisplay] = useState(true);
+  const [value, setValue] = useState(null);
+  const [propTerm, setPropTerm] = useState('');
+  const location = useLocation();
+  const parsedQuery = queryString.parse(location.search);
 
-  const onTermChange = (e) => {
-    setTerm(e.target.value);
-    if (e.target.value.length > 1)
-      swapiService.getElement(e.target.value).then(([listFromServer]) => {
-        setList(listFromServer);
-      });
+  const onTermChange = (event) => {
+    if (event.target.value === '') {
+      setDisplay(false);
+    } else {
+      setDisplay(true);
+      setValue(event.target.value);
+    }
+  };
+  const onSubmit = (event) => {
+    setTimeout(() => {
+      swapiService
+        .getElement(
+          value,
+          parsedQuery.page === undefined ? '1' : parsedQuery.page,
+        )
+        .then(([listFromServer]) => {
+          setList(listFromServer);
+          setPropTerm(value);
+        });
+    }, 2000);
+    event.preventDefault();
   };
 
   useEffect(() => {
-    setTerm(undefined);
+    setList(undefined);
   }, [display]);
 
   return (
     <div className="container-search">
-      <input type="text" value={term} onChange={onTermChange} />
+      <form onSubmit={onSubmit} className="container-search">
+        <input type="text" onInput={onTermChange} className="search-input" />
+        <input type="submit" value="" className="search-submit" />
+      </form>
       {list && display && (
         <SearchList
           list={list}
           display={display}
-          propTerm={term}
           setDisplay={setDisplay}
+          propTerm={propTerm}
         />
       )}
     </div>

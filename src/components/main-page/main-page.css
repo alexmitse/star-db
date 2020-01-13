@@ -1,24 +1,41 @@
 .main-content {
   display: flex;
   justify-content: center;
+  margin-top: 3%;
 }
 
-.toggle-planet {
+.show-planet {
+  border: none;
+}
+
+.toggle-planet-off {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -50px;
+  width: 100%;
+}
+.toggle-planet-on {
   display: flex;
   justify-content: flex-end;
   width: 100%;
+}
+.toggle-planet:hover .toggle-planet:focus {
+  margin-top: 200px;
 }
 
 .btn-toggle-planet {
   background-color: rgb(10, 10, 10);
   border-radius: 10px;
-  border-width: 1px;
-  border-color: rgba(241, 233, 233, 0.459);
-  border-style: solid;
+  outline: none;
+  border-style: none;
   height: 50px;
   width: 150px;
   font-family: 'DIN Next W01 Regular', Helvetica, Arial, sans-serif;
   color: rgba(241, 233, 233, 0.459);
   text-decoration: none;
   cursor: pointer;
+}
+
+.btn-toggle-planet:hover {
+  background-color: #585656;
 }

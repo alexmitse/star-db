@@ -33,13 +33,17 @@ export default class MainPage extends Component {
       <div className="main-content">
         <div className="show-planet">
           {planet}
-          <div className="toggle-planet">
+          <div
+            className={
+              planet === null ? 'toggle-planet-on' : 'toggle-planet-off'
+            }
+          >
             <button
               type="button"
               className="btn-toggle-planet"
               onClick={this.toggleRandomPlanet}
             >
-              Toggle Random Planet
+              OFF/ON
             </button>
           </div>
         </div>

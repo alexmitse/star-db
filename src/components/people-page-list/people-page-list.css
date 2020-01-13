@@ -1,9 +1,16 @@
 .people-page-list {
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  grid-gap: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 .people-page {
-  width: 730px;
-  height: 534px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 2;
+}
+
+.people-page-filter {
+  display: flex;
+  flex-grow: 1;
+  align-items: flex-start;
 }

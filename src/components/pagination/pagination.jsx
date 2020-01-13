@@ -34,7 +34,7 @@ export default function Pagination({
     .map((_, index) => index + 1)
     .map((page) => {
       return (
-        <li key={page}>
+        <li key={page} className="item">
           <PaginationItem
             page={page}
             currentPage={currentPage}

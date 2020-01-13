@@ -3,6 +3,10 @@ nav {
   justify-content: center;
 }
 
+.item {
+  display: inline;
+}
+
 .pagination {
   margin-left: -20px;
 }
@@ -13,13 +17,11 @@ nav {
 }
 
 .page-item {
+  display: inline;
   padding: 7px;
   margin: 5px;
   background-color: rgb(10, 10, 10);
   border-radius: 10px;
-  border-width: 1px;
-  border-color: rgba(241, 233, 233, 0.459);
-  border-style: solid;
   font-family: 'DIN Next W01 Regular', Helvetica, Arial, sans-serif;
   color: rgba(241, 233, 233, 0.459);
   text-decoration: none;
@@ -31,13 +33,11 @@ nav {
 }
 
 .page-item-active {
+  display: inline;
   padding: 7px;
   margin: 5px;
   background-color: rgba(241, 233, 233, 0.459);
   border-radius: 10px;
-  border-width: 1px;
-  border-color: rgba(241, 233, 233, 0.459);
-  border-style: solid;
   font-family: 'DIN Next W01 Regular', Helvetica, Arial, sans-serif;
   color: rgba(241, 233, 233, 0.459);
   text-decoration: none;

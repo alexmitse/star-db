@@ -1,20 +1,47 @@
-.header {
+.navigation {
   display: flex;
-  justify-content: center;
   flex-direction: column;
-}
-
-div.img-star-wars {
-  padding: 0px;
-}
-
-.header-nav {
-  display: flex;
   width: 100%;
-  justify-content: center;
 }
-
-.header-components {
+.img-star-wars-search {
+  display: flex;
+  align-items: center;
+}
+.container-nav-links {
+  padding: 4px 15px;
   display: flex;
   justify-content: center;
+  border-width: 1px;
+  border-color: rgba(241, 233, 233, 0.459);
+  border-style: groove;
+  border-left-style: none;
+  border-right-style: none;
+}
+.img-block {
+  margin-left: 10%;
+}
+
+.li-nav-links {
+  display: inline;
+  padding: 20px 32px;
+  border-width: 1px;
+  border-color: rgba(241, 233, 233, 0.459);
+  border-right-style: groove;
+  font-weight: 700;
+  border-left-style: none;
+}
+
+.li-nav-links:link {
+  font-size: 0.875rem;
+  text-align: center;
+}
+.li-nav-links-end {
+  padding: 20px 32px;
+  display: inline;
+}
+a {
+  font-family: 'DIN Next W01 Regular', Helvetica, Arial, sans-serif;
+  color: rgba(241, 233, 233, 0.459);
+  text-decoration: none;
+  cursor: pointer;
 }

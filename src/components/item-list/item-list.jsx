@@ -10,7 +10,7 @@ export default function ItemList({ list, lable }) {
   function renderItems(arr) {
     // eslint-disable-next-line react/prop-types
     return arr.map(({ id, name }) => (
-      <li key={id}>
+      <li key={id} className="item-li">
         <Link to={`/${lable}/id=${id}`} className="list-group-item">
           {name}
         </Link>

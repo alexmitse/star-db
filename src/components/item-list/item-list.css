@@ -3,26 +3,27 @@
   flex-direction: column;
   cursor: pointer;
 }
-
-ul {
-  padding-left: 0px;
+.container-item-list {
+  display: flex;
+  justify-content: center;
 }
 
-li {
-  display: inline;
+.item-li {
+  display: flex;
 }
-
 .item-list {
+  flex-basis: 100%;
+  align-items: center;
   background-color: rgb(10, 10, 10);
+  border-radius: 10px;
+  padding: 0px;
 }
 
 .list-group-item {
+  display: flex;
+  width: 100%;
   padding: 10px;
-  background-color: rgb(10, 10, 10);
   border-radius: 10px;
-  border-width: 1px;
-  border-color: rgba(241, 233, 233, 0.459);
-  border-style: solid;
   font-family: 'DIN Next W01 Regular', Helvetica, Arial, sans-serif;
   color: rgba(241, 233, 233, 0.459);
   text-decoration: none;
