@@ -2,6 +2,10 @@
   "name": "star-db",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "npm": "6.12.1",
+    "node": "12.13.1"
+  },
   "dependencies": {
     "@types/query-string": "^6.3.0",
     "airbnb": "0.0.2",
