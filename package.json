@@ -62,7 +62,6 @@
     "stylelint-config-prettier": "^6.0.0",
     "stylelint-config-recommended": "^3.0.0",
     "stylelint-config-standard": "^19.0.0",
-    "stylelint-prettier": "^1.1.1",
-    "webpack-dev-server": "^3.10.1"
+    "stylelint-prettier": "^1.1.1"
   }
 }
