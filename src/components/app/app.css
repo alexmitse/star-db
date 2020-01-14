@@ -4,12 +4,6 @@ body {
   background-size: 100%;
 }
 
-@media (max-width: 1500px) {
-  body {
-    background-size: auto;
-  }
-}
-
 .header {
   width: 80%;
   margin: auto;
@@ -17,6 +11,15 @@ body {
 
 .header-nav {
   display: flex;
-
   width: 100%;
+}
+
+@media (max-width: 1500px) {
+  body {
+    background-size: auto;
+  }
+  .header {
+    width: 100%;
+    margin: auto;
+  }
 }
