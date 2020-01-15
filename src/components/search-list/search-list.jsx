@@ -15,6 +15,7 @@ export default function SearchList({
   setDisplay,
   currentPage,
 }) {
+  console.log(propTerm);
   let count = 0;
   function renderItems(arr) {
     let arr1 = arr.filter((item) => item !== null);
@@ -26,7 +27,7 @@ export default function SearchList({
       count += 1; // bad
       if (count > 10) return;
       return (
-        <li key={count}>
+        <li key={count} className="item-li">
           <Link to={`/${lable}/id=${id}`} className="list-group-item">
             {name === [] ? null : name}
           </Link>
@@ -35,8 +36,8 @@ export default function SearchList({
     });
   }
   return (
-    <div className="search-list">
-      <ul className="item-list search-group">
+    <div className="container-item-list">
+      <ul className="item-list list-group">
         {renderItems(list)}
         {list && display && (
           <li onClick={() => setDisplay(false)}>

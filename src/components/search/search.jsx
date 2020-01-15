@@ -24,17 +24,19 @@ export default function Search() {
     }
   };
   const onSubmit = (event) => {
-    setTimeout(() => {
-      swapiService
-        .getElement(
-          value,
-          parsedQuery.page === undefined ? '1' : parsedQuery.page,
-        )
-        .then(([listFromServer]) => {
-          setList(listFromServer);
-          setPropTerm(value);
-        });
-    }, 2000);
+    if (value !== null) {
+      setTimeout(() => {
+        swapiService
+          .getElement(
+            value,
+            parsedQuery.page === undefined ? '1' : parsedQuery.page,
+          )
+          .then(([listFromServer]) => {
+            setList(listFromServer);
+            setPropTerm(value);
+          });
+      }, 2000);
+    }
     event.preventDefault();
   };
 

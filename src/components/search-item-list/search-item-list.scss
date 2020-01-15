@@ -1,9 +1,21 @@
 .component-search-container {
   display: flex;
   margin: 10px;
+  flex-basis: 100%;
+  align-items: center;
   flex-direction: column;
 }
 
 .container-search-component {
   width: 30%;
+}
+
+.planets-page-none {
+  display: flex;
+  flex-direction: column;
+  width: 730px;
+  height: 534px;
+  flex-basis: fit-content;
+  margin: 0px 200px;
+  background-color: rgb(10, 10, 10);
 }

@@ -57,9 +57,13 @@ export default function SearchItemList() {
   };
 
   if (!list) return <Spinner />;
-
+  console.log(parsedQuery.search !== 'null');
   return (
-    <div className="component-search-container">
+    <div
+      className={
+        parsedQuery.search !== 'null' ? 'planets-page' : 'planets-page-none'
+      }
+    >
       <form
         onSubmit={onHandleSubmit}
         className="container-search-component container-search"
@@ -67,8 +71,10 @@ export default function SearchItemList() {
         <input type="text" onInput={onTermChange} className="search-input" />
         <input type="submit" value="" className="search-submit" />
       </form>
-      {list && <SearchList list={list} propTerm={term} display={false} />}
-      {list && (
+      {list && parsedQuery.search !== 'null' && (
+        <SearchList list={list} propTerm={term} display={false} />
+      )}
+      {list && parsedQuery.search !== 'null' && (
         <PaginationSearch
           totalCount={count}
           currentPage={currentElement}

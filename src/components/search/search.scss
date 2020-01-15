@@ -21,11 +21,12 @@ $radious: 4px;
 .container-search {
   @include base-properties;
   flex-wrap: wrap;
+  align-self: center;
   background-color: $backgroundColor;
   box-shadow: none;
   position: relative;
   width: 200px;
-  opacity: 0.7;
+  opacity: 0.9;
   height: 30px;
   transition: opacity 350ms;
 
