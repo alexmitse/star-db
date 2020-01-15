@@ -24,7 +24,7 @@ nav {
   margin: 5px;
   background-color: rgb(10, 10, 10);
   border-radius: 10px;
-  font-family: 'DIN Next W01 Regular', Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   color: rgba(241, 233, 233, 0.459);
   text-decoration: none;
   cursor: pointer;
@@ -40,7 +40,7 @@ nav {
   margin: 5px;
   background-color: rgba(241, 233, 233, 0.459);
   border-radius: 10px;
-  font-family: 'DIN Next W01 Regular', Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   color: rgba(241, 233, 233, 0.459);
   text-decoration: none;
   cursor: default;

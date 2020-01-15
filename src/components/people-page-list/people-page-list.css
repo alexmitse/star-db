@@ -1,16 +1,36 @@
 .people-page-list {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  flex-basis: 100%;
+  margin: 0px 200px;
+  background-color: rgb(10, 10, 10);
 }
 .people-page {
   display: flex;
   flex-direction: column;
-  flex-grow: 2;
+  flex-grow: 5;
 }
 
 .people-page-filter {
   display: flex;
+  height: auto;
   flex-grow: 1;
-  align-items: flex-start;
+  border: 1px;
+  border-style: groove;
+  border-color: rgba(241, 233, 233, 0.459);
+  border-bottom-style: none;
+  border-top-style: none;
+  border-left-style: none;
+}
+
+@media screen and (max-width: 1200px) {
+  .people-page-list {
+    margin: 0px 100px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .people-page-list {
+    margin: 0px auto;
+  }
 }

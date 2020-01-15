@@ -1,4 +1,10 @@
 .starships-page {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   width: 730px;
   height: 534px;
+  flex-basis: fit-content;
+  margin: 0px 200px;
+  background-color: rgb(10, 10, 10);
 }

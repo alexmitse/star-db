@@ -18,51 +18,59 @@ export default function PersonDetails({ persona }) {
   } = persona;
   return (
     <div className="container-datails">
-      <img
-        className="planet-image"
-        src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
-        alt="character"
-      />
-      <div className="planet-information">
-        <h4 className="name">{name}</h4>
-        <ul className="list-group list-group-flush">
-          <li key={gender} className="list-group-item">
+      <div className="image-description">
+        <img
+          className="item-image"
+          src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
+          alt="character"
+        />
+        <div className="descripton">
+          <h4 className="name">{name}</h4>
+        </div>
+      </div>
+      <div className="item-information">
+        <ul className="ul-group-information">
+          <li key={gender} className="list-group-item-up">
             <span className="term">Gender</span>
             <span className="term-item">{gender}</span>
           </li>
-          <li key={homeworld.id} className="list-group-item">
+          <li key={homeworld.id} className="list-group-item-up">
             <span className="term">homeworld</span>
-            <span className="term-item">
-              <Link to={`/planets/id=${homeworld.id}`}>
+            <span className="term-item list-group-item ">
+              <Link to={`/planets/id=${homeworld.id}`} className="a-item">
                 {`${homeworld.name}.`}
               </Link>
             </span>
           </li>
-          <li key="films" className="list-group-item">
+          <li key="films" className="list-group-item-up">
             <span className="term">Films</span>
             <ul className="list-group list-group-flush">
               {films.map((item) => {
                 return (
                   <li key={item.id} className="list-group-item">
-                    <Link to={`/films/id=${item.id}`}>{`${item.title}. `}</Link>
+                    <Link to={`/films/id=${item.id}`} className="a-item">
+                      {`${item.title}. `}
+                    </Link>
                   </li>
                 );
               })}
             </ul>
           </li>
-          <li key={species.name} className="list-group-item">
+          <li key={species.name} className="list-group-item-up">
             <span className="term">Species</span>
-            <span className="term-item">
-              <Link to={`/species/id=${species.id}`}>{`${species.name}`}</Link>
+            <span className="term-item list-group-item ">
+              <Link to={`/species/id=${species.id}`} className="a-item">
+                {`${species.name}`}
+              </Link>
             </span>
           </li>
-          <li key="vehicles" className="list-group-item">
+          <li key="vehicles" className="list-group-item-up">
             <span className="term">Vehicles</span>
             <ul className="list-group list-group-flush">
               {vehicles.map((item) => {
                 return (
                   <li key={item.name} className="list-group-item">
-                    <Link to={`/vehicles/id=${item.id}`}>
+                    <Link to={`/vehicles/id=${item.id}`} className="a-item">
                       {`${item.name}. `}
                     </Link>
                   </li>
@@ -70,13 +78,13 @@ export default function PersonDetails({ persona }) {
               })}
             </ul>
           </li>
-          <li key="starships" className="list-group-item">
+          <li key="starships" className="list-group-item-up">
             <span className="term">Starships</span>
             <ul className="list-group list-group-flush">
               {starships.map((item) => {
                 return (
                   <li key={item.name} className="list-group-item">
-                    <Link to={`/starships/id=${item.id}`}>
+                    <Link to={`/starships/id=${item.id}`} className="a-item">
                       {`${item.name}. `}
                     </Link>
                   </li>

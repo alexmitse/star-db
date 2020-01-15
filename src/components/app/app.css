@@ -1,25 +1,29 @@
 body {
   background-image: url(https://images.alphacoders.com/107/thumb-1920-107763.jpg);
   background-repeat: space;
-  background-size: 100%;
+  background-size: cover;
+  min-height: 100vh;
+  margin: 0;
+  background-color: khaki !important;
 }
 
 .header {
   width: 80%;
   margin: auto;
 }
-
+.header-components {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
 .header-nav {
   display: flex;
   width: 100%;
 }
 
 @media (max-width: 1500px) {
-  body {
-    background-size: auto;
-  }
   .header {
-    width: 100%;
+    width: 85%;
     margin: auto;
   }
 }

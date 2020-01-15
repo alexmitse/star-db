@@ -8,41 +8,49 @@ export default function StarshipsDetails({ starship }) {
 
   return (
     <div className="container-datails">
-      <img
-        className="planet-image"
-        src={`https://starwars-visualguide.com/assets/img/starships/${id}.jpg`}
-        alt="i'm so sorry"
-      />
-      <div className="planet-information">
-        <h4 className="name">{name}</h4>
-        <ul className="list-group list-group-flush">
-          <li className="list-group-item">
+      <div className="image-description">
+        <img
+          className="item-image"
+          src={`https://starwars-visualguide.com/assets/img/starships/${id}.jpg`}
+          alt="i'm so sorry"
+        />
+        <div className="descripton">
+          <h4 className="name">{name}</h4>
+        </div>
+      </div>
+      <div className="item-information">
+        <ul className="ul-group-information">
+          <li className="list-group-item-up">
             <span className="term">Model</span>
             <span className="term-item">{model}</span>
           </li>
-          <li className="list-group-item">
+          <li className="list-group-item-up">
             <span className="term">length</span>
             <span className="term-item">{length}</span>
           </li>
-          <li key="people" className="list-group-item">
+          <li key="people" className="list-group-item-up">
             <span className="term">people </span>
             <ul className="list-group list-group-flush">
               {people.map((item) => {
                 return (
                   <li key={item.name} className="list-group-item">
-                    <Link to={`/people/id=${item.id}`}>{`${item.name}. `}</Link>
+                    <Link to={`/people/id=${item.id}`} className="a-item">
+                      {`${item.name}. `}
+                    </Link>
                   </li>
                 );
               })}
             </ul>
           </li>
-          <li key="films" className="list-group-item">
+          <li key="films" className="list-group-item-up">
             <span className="term">Films</span>
             <ul className="list-group list-group-flush">
               {films.map((item) => {
                 return (
                   <li key={item.id} className="list-group-item">
-                    <Link to={`/films/id=${item.id}`}>{`${item.title}. `}</Link>
+                    <Link to={`/films/id=${item.id}`} className="a-item">
+                      {`${item.title}. `}
+                    </Link>
                   </li>
                 );
               })}

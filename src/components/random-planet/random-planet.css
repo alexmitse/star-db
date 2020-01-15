@@ -5,14 +5,12 @@
   border-radius: 10px;
 }
 
-.random-planet .planet-image {
+.random-planet .item-image {
   width: 500px;
   height: 500px;
   margin-right: 1rem;
   border-radius: 10px;
-}
-
-.random-planet .list-group {
+  object-fit: cover;
 }
 
 .random-planet .list-group-item {
@@ -27,7 +25,7 @@
   margin-right: 0.5rem;
 }
 
-.planet-information {
+.item-information {
   display: flex;
   flex-direction: column;
   color: rgba(241, 233, 233, 0.459);
@@ -38,11 +36,25 @@
 }
 
 .list-group-item {
-  display: flex;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   text-align: center;
-  font-family: 'DIN Next W01 Regular', Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   margin: 0 auto;
   color: rgba(241, 233, 233, 0.459);
   text-transform: uppercase;
+}
+
+@media screen and (max-width: 900px) {
+  .random-planet .item-image {
+    width: 400px;
+    height: 400px;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .random-planet .item-image {
+    width: 300px;
+    height: 400px;
+    object-fit: contain;
+  }
 }

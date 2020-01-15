@@ -8,21 +8,19 @@
   align-items: center;
 }
 .container-nav-links {
-  padding: 4px 15px;
   display: flex;
-  justify-content: center;
-  border-width: 1px;
-  border-color: rgba(241, 233, 233, 0.459);
-  border-style: groove;
-  border-left-style: none;
-  border-right-style: none;
+  padding: 4px 15px;
+  justify-content: space-around;
 }
-@media screen and (min-width: 900px) {
-}
+
 .img-block {
   margin-left: 10%;
 }
 
+.nav-links {
+  display: flex;
+  margin: 0;
+}
 .li-nav-links {
   display: inline;
   padding: 20px 32px;
@@ -37,13 +35,109 @@
   font-size: 0.875rem;
   text-align: center;
 }
+
 .li-nav-links-end {
   padding: 20px 32px;
   display: inline;
 }
-a {
-  font-family: 'DIN Next W01 Regular', Helvetica, Arial, sans-serif;
-  color: rgba(241, 233, 233, 0.459);
+
+.li-nav-links-start {
+  border-width: 1px;
+  border-color: rgba(241, 233, 233, 0.459);
+  border-right-style: groove;
+  border-left-style: none;
+}
+
+.a-nav-links {
+  font-family: 'Open Sans', sans-serif;
+  color: rgba(243, 240, 240, 0.459);
   text-decoration: none;
   cursor: pointer;
+}
+
+.a-nav-links:hover {
+  color: #fff;
+}
+
+@media screen and (max-width: 1350px) {
+  .container-nav-links {
+    padding: 0;
+    flex-direction: row;
+  }
+
+  .img-star-wars-search {
+    justify-content: space-around;
+  }
+
+  .img-block {
+    display: flex;
+  }
+  .logo {
+    display: flex;
+    width: 175px;
+    height: 120px;
+  }
+
+  .nav-links {
+    display: flex;
+    margin: 0;
+  }
+
+  .li-nav-links {
+    display: flex;
+    padding: 15px 20px;
+    border-width: 1px;
+    border-color: rgba(241, 233, 233, 0.459);
+    border-right-style: groove;
+    font-weight: 700;
+    border-left-style: none;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .nav-links {
+    padding: 0;
+  }
+
+  .li-nav-links-end {
+    padding: 0;
+  }
+
+  .li-nav-links-end {
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .container-nav-links {
+    padding: 0;
+    flex-direction: column;
+    width: fit-content;
+    border-style: none;
+  }
+  .img-block {
+    margin-left: 0;
+  }
+  .nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+  }
+
+  .img-star-wars-search {
+    justify-content: space-around;
+  }
+
+  .li-nav-links {
+    display: flex;
+    width: 100px;
+  }
+
+  .li-nav-links-end {
+    display: none;
+  }
+
+  .li-nav-links-start {
+    display: none;
+  }
 }

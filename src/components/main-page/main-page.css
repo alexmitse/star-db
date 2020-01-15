@@ -30,7 +30,7 @@
   border-style: none;
   height: 50px;
   width: 150px;
-  font-family: 'DIN Next W01 Regular', Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   color: rgba(241, 233, 233, 0.459);
   text-decoration: none;
   cursor: pointer;
@@ -38,4 +38,11 @@
 
 .btn-toggle-planet:hover {
   background-color: #585656;
+}
+
+@media screen and (max-width: 760px) {
+  .random-planet .item-image {
+    width: 300px;
+    height: 400px;
+  }
 }

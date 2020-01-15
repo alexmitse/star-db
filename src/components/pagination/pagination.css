@@ -1,6 +1,12 @@
-nav {
+[aria-label] {
   display: flex;
   justify-content: center;
+  border: 1px;
+  border-style: groove;
+  border-color: rgba(241, 233, 233, 0.459);
+  border-bottom-style: none;
+  border-top-style: none;
+  background-color: rgb(10, 10, 10);
 }
 
 .item {
@@ -22,7 +28,7 @@ nav {
   margin: 5px;
   background-color: rgb(10, 10, 10);
   border-radius: 10px;
-  font-family: 'DIN Next W01 Regular', Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   color: rgba(241, 233, 233, 0.459);
   text-decoration: none;
   cursor: pointer;
@@ -38,7 +44,7 @@ nav {
   margin: 5px;
   background-color: rgba(241, 233, 233, 0.459);
   border-radius: 10px;
-  font-family: 'DIN Next W01 Regular', Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   color: rgba(241, 233, 233, 0.459);
   text-decoration: none;
   cursor: default;
