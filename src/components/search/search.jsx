@@ -14,7 +14,11 @@ export default function Search() {
   const [propTerm, setPropTerm] = useState('');
   const location = useLocation();
   const parsedQuery = queryString.parse(location.search);
-
+  const onBlur = (event) => {
+    if (event.target.value === '') {
+      setDisplay(false);
+    }
+  };
   const onTermChange = (event) => {
     if (event.target.value === '') {
       setDisplay(false);
@@ -24,6 +28,7 @@ export default function Search() {
     }
   };
   const onSubmit = (event) => {
+    setDisplay(true);
     if (value !== null) {
       setTimeout(() => {
         swapiService
@@ -46,7 +51,7 @@ export default function Search() {
 
   return (
     <div className="container-search">
-      <form onSubmit={onSubmit} className="container-search">
+      <form onSubmit={onSubmit} onBlur={onBlur} className="container-search">
         <input type="text" onInput={onTermChange} className="search-input" />
         <input type="submit" value="" className="search-submit" />
       </form>

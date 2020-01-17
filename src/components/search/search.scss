@@ -29,6 +29,7 @@ $radious: 4px;
   opacity: 0.9;
   height: 30px;
   transition: opacity 350ms;
+  z-index: 1;
 
   .search-input {
     @include base-properties;

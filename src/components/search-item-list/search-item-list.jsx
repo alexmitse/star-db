@@ -55,13 +55,13 @@ export default function SearchItemList() {
       setCurrentElement(element);
     });
   };
-
   if (!list) return <Spinner />;
-  console.log(parsedQuery.search !== 'null');
   return (
     <div
       className={
-        parsedQuery.search !== 'null' ? 'planets-page' : 'planets-page-none'
+        parsedQuery.search !== 'null' && list.length !== 0
+          ? 'planets-page'
+          : 'planets-page-none'
       }
     >
       <form
@@ -74,6 +74,7 @@ export default function SearchItemList() {
       {list && parsedQuery.search !== 'null' && (
         <SearchList list={list} propTerm={term} display={false} />
       )}
+      {list.length === 0 && <span className="no-result">No Result</span>}
       {list && parsedQuery.search !== 'null' && (
         <PaginationSearch
           totalCount={count}
