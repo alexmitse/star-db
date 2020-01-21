@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';

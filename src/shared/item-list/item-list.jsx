@@ -1,6 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -8,7 +5,6 @@ import './item-list.css';
 
 export default function ItemList({ list, lable }) {
   function renderItems(arr) {
-    // eslint-disable-next-line react/prop-types
     return arr.map(({ id, name }) => (
       <li key={id} className="item-li">
         <Link to={`/${lable}/id=${id}`} className="list-group-item">

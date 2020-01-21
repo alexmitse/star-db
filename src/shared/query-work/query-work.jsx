@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable prefer-template */
 import React from 'react';
 import { useLocation } from 'react-router-dom';

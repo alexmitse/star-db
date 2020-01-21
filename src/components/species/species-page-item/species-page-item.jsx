@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Details from '../../../shared/details';

@@ -1,9 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable consistent-return */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable-next-line no-else-return */
 import React from 'react';
 import './search-list.scss';
 import { Link } from 'react-router-dom';
@@ -28,7 +22,7 @@ export default function SearchList({
 
     return arr1.map(({ id, name, lable }) => {
       count += 1; // bad
-      if (count > 10) return;
+      if (count > 10) return 0;
       return (
         <li
           key={count}

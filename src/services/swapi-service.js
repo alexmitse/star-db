@@ -1,5 +1,3 @@
-/* eslint-disable no-await-in-loop */
-/* eslint-disable class-methods-use-this */
 export default class SwapiService {
   apiBase = 'https://server-star-db.herokuapp.com';
 
