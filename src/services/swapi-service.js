@@ -182,7 +182,7 @@ export default class SwapiService {
     return {
       id: film.id,
       lable: 'films',
-      name: film.title,
+      name: film.name,
       director: film.director,
       people: film.people,
       species: film.species,

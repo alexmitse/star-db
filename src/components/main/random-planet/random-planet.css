@@ -1,0 +1,75 @@
+.random-planet {
+  display: flex;
+  padding: 1rem;
+  background-color: rgb(10, 10, 10);
+  border-radius: 10px;
+}
+
+.planet-information {
+  display: flex;
+  flex-direction: column;
+  padding-left: 30px;
+}
+
+.planet-name {
+  font-size: 0.9rem;
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  margin: 0 auto;
+  color: rgba(241, 233, 233, 0.459);
+  text-transform: uppercase;
+}
+
+.random-planet .item-image {
+  width: 500px;
+  height: 500px;
+  margin-right: 1rem;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.random-planet .list-group-item {
+  padding: 0.25rem;
+}
+
+.list-group-item {
+  border: none;
+}
+
+.random-planet .list-group-item .term {
+  margin-right: 0.5rem;
+}
+
+.item-information {
+  display: flex;
+  flex-direction: column;
+  color: rgba(241, 233, 233, 0.459);
+}
+
+.list-group-flush {
+  padding: 0px;
+}
+
+.list-group-item {
+  font-size: 0.9rem;
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  margin: 0 auto;
+  color: rgba(241, 233, 233, 0.459);
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 900px) {
+  .random-planet .item-image {
+    width: 400px;
+    height: 400px;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .random-planet .item-image {
+    width: 300px;
+    height: 400px;
+    object-fit: contain;
+  }
+}
