@@ -7,7 +7,6 @@
     "node": "12.13.1"
   },
   "dependencies": {
-    "@types/query-string": "^6.3.0",
     "airbnb": "0.0.2",
     "node-sass": "^4.13.0",
     "prop-types": "^15.7.2",
@@ -18,14 +17,11 @@
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.1.2",
     "react-script": "^2.0.5",
-    "react-scripts": "3.2.0",
-    "redux": "^4.0.4"
+    "react-scripts": "3.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
     "lint": "npm run lint:formatting && npm run lint:scripts",
     "lint:scripts": "eslint ./**/*.{js,jsx}",
     "lint:formatting": "prettier --check ./**/*.*",
