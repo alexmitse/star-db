@@ -14,45 +14,52 @@ export default function PersonDetails({ details }) {
       return (
         <ul className="ul-group-information">
           {Object.keys(information).map((item) => {
-            if (typeof information[item] === 'string') {
-              return (
-                <li key={information[item]} className="list-group-item-up">
-                  <span className="term">{item}</span>
-                  <span className="term-item">{information[item]}</span>
-                </li>
-              );
-            }
-            if (information[item].length === undefined) {
-              return (
-                <li key={item.id} className="list-group-item-up">
-                  <span className="term">{item}</span>
-                  <span className="term-item list-group-item ">
-                    <Link to={`/{lable}/id=${item.id}`} className="a-item">
-                      {`${item.name}.`}
+            switch (Object.prototype.toString.call(information[item])) {
+              case '[object Object]':
+                return (
+                  <li key={information[item]} className="list-group-item-up">
+                    <span className="term">{item}</span>
+                    <Link
+                      to={`/${item}/id=${information[item].id}`}
+                      className="a-item"
+                    >
+                      {`${information[item].name}.`}
                     </Link>
-                  </span>
-                </li>
-              );
+                  </li>
+                );
+              case '[object String]':
+                return (
+                  <li key={information[item]} className="list-group-item-up">
+                    <span className="term">{item}</span>
+                    <span className="term-item">{information[item]}</span>
+                  </li>
+                );
+              case '[object Array]':
+                return (
+                  <li key={name} className="list-group-item-up">
+                    <span className="term">{item}</span>
+                    <ul className="list-group list-group-flush">
+                      {information[item].map((elementOfItem) => {
+                        return (
+                          <li
+                            key={elementOfItem[name]}
+                            className="list-group-item"
+                          >
+                            <Link
+                              to={`/${item}/id=${elementOfItem.id}`}
+                              className="a-item"
+                            >
+                              {`${elementOfItem.name}. `}
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </li>
+                );
+              default:
+                return false;
             }
-            return (
-              <li key={name} className="list-group-item-up">
-                <span className="term">{item}</span>
-                <ul className="list-group list-group-flush">
-                  {information[item].map((elementOfItem) => {
-                    return (
-                      <li key={elementOfItem[name]} className="list-group-item">
-                        <Link
-                          to={`/${lable}/id=${elementOfItem.id}`}
-                          className="a-item"
-                        >
-                          {`${elementOfItem.name}. `}
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </li>
-            );
           })}
         </ul>
       );

@@ -168,7 +168,7 @@ export default class SwapiService {
       lable: 'people',
       name: person.name,
       gender: person.gender,
-      homeworld: person.planet,
+      planets: person.planet,
       films: person.films,
       species: person.species,
       vehicles: person.vehicles,
